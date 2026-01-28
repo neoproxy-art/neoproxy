@@ -177,28 +177,28 @@ export default function NeoProxyClient() {
     let targetRotYW = 0
     let smoothRotXW = 0
     let smoothRotYW = 0
-    
+
     const handleMouseMove = (e: MouseEvent) => {
-       // Normalize mouse position from -1 to 1
-       const x = (e.clientX / window.innerWidth) * 2 - 1
-       const y = (e.clientY / window.innerHeight) * 2 - 1
-       
-       // Map to rotation angles (sensitivity factor 2)
-       targetRotXW = x * 2
-       targetRotYW = y * 2
+      // Normalize mouse position from -1 to 1
+      const x = (e.clientX / window.innerWidth) * 2 - 1
+      const y = (e.clientY / window.innerHeight) * 2 - 1
+
+      // Map to rotation angles (sensitivity factor 2)
+      targetRotXW = x * 2
+      targetRotYW = y * 2
     }
-    
+
     window.addEventListener('mousemove', handleMouseMove)
 
     // Loop
     engine.runRenderLoop(() => {
-       // Smooth interpolation (lerp)
-       smoothRotXW += (targetRotXW - smoothRotXW) * 0.05
-       smoothRotYW += (targetRotYW - smoothRotYW) * 0.05
+      // Smooth interpolation (lerp)
+      smoothRotXW += (targetRotXW - smoothRotXW) * 0.05
+      smoothRotYW += (targetRotYW - smoothRotYW) * 0.05
 
-       // Update global rotation variables used by rotate4D
-       rotXW = smoothRotXW
-       rotYW = smoothRotYW
+      // Update global rotation variables used by rotate4D
+      rotXW = smoothRotXW
+      rotYW = smoothRotYW
 
       const rotated = V.map(rotate4D)
       const projected = rotated.map(project)
@@ -224,8 +224,8 @@ export default function NeoProxyClient() {
 
     window.addEventListener('resize', () => engine.resize())
     return () => {
-        window.removeEventListener('mousemove', handleMouseMove)
-        engine.dispose()
+      window.removeEventListener('mousemove', handleMouseMove)
+      engine.dispose()
     }
   }, [])
 
@@ -242,25 +242,29 @@ export default function NeoProxyClient() {
           <div>LAYER: INTERFACE_SYSTEM</div>
         </div>
 
-        <ul className={styles.signals}>
-          <li>Signal ↔ Intention</li>
-          <li>Boundary in operation</li>
-          <li>Physical · Digital · Hybrid</li>
-        </ul>
+        <div className={styles.serviceList}>
+          <div className={styles.serviceBlock}>
+            <span className={styles.serviceTitle}>[01] DEVELOPMENT</span>
+            <span className={styles.serviceDesc}>Web Systems · Architecture · React/Next.js</span>
+          </div>
 
-        <div className={styles.poem}>
-          <span>Artifacts form.</span>
-          <span>Interfaces endure.</span>
-          <span className={styles.dim}>Some systems respond.</span>
-          <span className={styles.dim}>Others remain dormant.</span>
+          <div className={styles.serviceBlock}>
+            <span className={styles.serviceTitle}>[02] FABRICATION</span>
+            <span className={styles.serviceDesc}>3D Print · Prototyping · Parts</span>
+          </div>
+
+          <div className={styles.serviceBlock}>
+            <span className={styles.serviceTitle}>[03] ROBOTICS</span>
+            <span className={styles.serviceDesc}>Hardware Logic · Automation · AR</span>
+          </div>
         </div>
 
-        <div className={styles.warn}>[ RESONANCE IS NOT GUARANTEED ]</div>
+        <div className={styles.warn}>[ SYSTEM READY FOR INPUT ]</div>
 
         <nav className={styles.menu}>
-          <Link href="/systems">SYSTEMS</Link>
-          <Link href="/access">ACCESS PORTAL</Link>
-          <Link href="/memory">MEMORY</Link>
+          <button className={styles.ctaButton}>
+            [ INICIAR_PROTOCOLO ]
+          </button>
         </nav>
       </section>
     </main>

@@ -13,8 +13,8 @@ const inter = Inter({
 })
 
 export const metadata = {
-  title: 'NeoProxy',
-  description: 'System interface',
+  title: 'NeoProxy | Impresión 3D, Robótica & Sistemas Web',
+  description: 'Plataforma de servicios tecnológicos avanzados. Especialistas en prototipado rápido, desarrollo de software y soluciones robóticas.',
 }
 
 export default function RootLayout({

@@ -63,19 +63,39 @@
 }
 
 .block {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   font-size: 12px;
 }
 
-.signals {
-  list-style: none;
-  padding-left: 0;
-  margin: 16px 0;
-  font-size: 12px;
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 0;
 }
 
-.signals li::before {
-  content: '• ';
+.serviceBlock {
+  border: 1px solid rgba(159, 255, 224, 0.2);
+  padding: 12px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.serviceBlock:hover {
+  border-color: rgba(159, 255, 224, 0.8);
+  background: rgba(159, 255, 224, 0.05);
+  box-shadow: 0 0 15px rgba(159, 255, 224, 0.15);
+}
+
+.serviceTitle {
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.serviceDesc {
+  opacity: 0.6;
+  font-size: 11px;
 }
 
 .poem {
@@ -84,6 +104,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  display: none; /* Hidden for now in service mode */
 }
 
 .dim {
@@ -103,14 +124,34 @@
   gap: 10px;
 }
 
+.ctaButton {
+  background: transparent;
+  border: 1px solid #9fffe0;
+  color: #9fffe0;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.ctaButton:hover {
+  background: #9fffe0;
+  color: black;
+  box-shadow: 0 0 20px rgba(159, 255, 224, 0.4);
+}
+
+/* Fallback simple links */
 .menu a {
   color: #7fffd4;
   text-decoration: none;
   font-size: 12px;
   opacity: 0.6;
   transition: opacity 0.2s ease;
-}
-
-.menu a:hover {
-  opacity: 1;
+  display: none; /* Replacing with CTA */
 }

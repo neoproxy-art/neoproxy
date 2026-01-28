@@ -1,36 +1,36 @@
 // app/portal/page.tsx
+import Link from 'next/link'
+import styles from './portal.module.css'
 
 export default function Portal() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#000",
-        color: "#fff",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "monospace",
-        textAlign: "center",
-        padding: "2rem",
-      }}
-    >
-      <div style={{ maxWidth: "600px" }}>
-        <h1 style={{ letterSpacing: "0.1em" }}>NEO·PROXY</h1>
+    <main className={styles.main}>
+      <div className={styles.card}>
+        <div className={styles.header}>CONNECTION SECURE</div>
 
-        <p style={{ opacity: 0.7, marginTop: "0.5rem" }}>
-          ACCESS POINT
-        </p>
+        <h1 className={styles.title}>NEO·PROXY</h1>
+        <p className={styles.subtitle}>Systems & Fabrication Architect</p>
 
-        <div style={{ margin: "3rem 0" }}>
-          <p>This is not a portfolio.</p>
-          <p>This is a controlled system.</p>
+        <div className={styles.actions}>
+          {/* Simulated VCard Download */}
+          <a href="/contact.vcf" download className={`${styles.button} ${styles.primary}`}>
+            [ SAVE CONTACT ]
+          </a>
+
+          {/* Placeholder for WhatsApp/Signal */}
+          <a href="#" className={styles.button}>
+            WHATSAPP
+          </a>
+
+          <Link href="/" className={styles.button}>
+            ACCESS SYSTEM
+          </Link>
         </div>
 
-        <p style={{ opacity: 0.5 }}>
-          Portal initializing.
-        </p>
+        <div className={styles.footer}>
+          ID: 884-291-X // ENCRYPTED
+        </div>
       </div>
     </main>
-  );
+  )
 }
