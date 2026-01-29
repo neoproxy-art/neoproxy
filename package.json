@@ -12,6 +12,8 @@
     "@tensorflow/tfjs": "^4.22.0",
     "@xenova/transformers": "^2.17.2",
     "babylonjs": "^8.46.2",
+    "babylonjs-loaders": "^8.48.1",
+    "babylonjs-materials": "^8.48.1",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3"

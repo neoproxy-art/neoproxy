@@ -234,6 +234,14 @@ export default function NeoProxyClient() {
       <canvas ref={canvasRef} className={styles.canvas} />
 
       <section className={styles.ui}>
+
+        {/* Top Right Navigation */}
+        <div style={{ position: 'absolute', top: '2rem', right: '2rem', zIndex: 100, pointerEvents: 'auto' }}>
+          <Link href="/manifesto" className={styles.ctaButton} style={{ fontSize: '0.8rem', padding: '0.5rem 1rem', border: '1px solid #06b6d4' }}>
+            [ MANIFESTO_PHI ]
+          </Link>
+        </div>
+
         <h1 className={styles.title}>NEO·PROXY</h1>
         <p className={styles.subtitle}>experimental system construct</p>
 
@@ -248,10 +256,10 @@ export default function NeoProxyClient() {
             <span className={styles.serviceDesc}>Web Systems · Architecture · React/Next.js</span>
           </div>
 
-          <div className={styles.serviceBlock}>
+          <Link href="/fabrication" className={styles.serviceBlock}>
             <span className={styles.serviceTitle}>[02] FABRICATION</span>
             <span className={styles.serviceDesc}>3D Print · Prototyping · Parts</span>
-          </div>
+          </Link>
 
           <div className={styles.serviceBlock}>
             <span className={styles.serviceTitle}>[03] ROBOTICS</span>
