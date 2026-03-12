@@ -1,0 +1,4 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,206286,e=>{"use strict";var o=e.i(47662);e.i(834315),e.i(184972),e.i(566371),e.i(159791);let r="volumetricLightingRenderVolumeVertexShader",i=`#include<__decl__sceneVertex>
+#include<__decl__meshVertex>
+attribute vec3 position;varying vec4 vWorldPos;void main(void) {vec4 worldPos=world*vec4(position,1.0);vWorldPos=worldPos;gl_Position=viewProjection*worldPos;}
+`;o.ShaderStore.ShadersStore[r]||(o.ShaderStore.ShadersStore[r]=i),e.s(["volumetricLightingRenderVolumeVertexShader",0,{name:r,shader:i}])}]);
