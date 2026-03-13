@@ -1,0 +1,430 @@
+/* ===================================
+   NEOPROXY AGENTS PAGE - CYBERPUNK DESIGN
+   =================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #000000;
+  --bg-void: #030308;
+  --bg-surface: #0a0a0f;
+  --bg-panel: rgba(10, 10, 15, 0.95);
+  --accent-primary: #00ff9d;
+  --accent-secondary: #00d4ff;
+  --accent-warm: #ff9d00;
+  --accent-danger: #ff0080;
+  --accent-purple: #8000ff;
+  --text-primary: #e8e8ec;
+  --text-muted: #5a5a6e;
+  --border-color: #1a1a24;
+  --glow-primary: rgba(0, 255, 157, 0.3);
+  --glow-secondary: rgba(0, 212, 255, 0.3);
+  --glow-warm: rgba(255, 157, 0, 0.3);
+}
+
+/* ===================================
+   LAYOUT & STRUCTURE
+   =================================== */
+
+.main {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-void) 50%, var(--bg-surface) 100%);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.main::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0, 255, 157, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(255, 157, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ===================================
+   HEADER SECTION
+   =================================== */
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0;
+  text-shadow: 0 0 30px var(--glow-primary);
+  letter-spacing: 0.2em;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 30px var(--glow-primary); }
+  100% { text-shadow: 0 0 50px var(--glow-primary), 0 0 80px var(--glow-primary); }
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--accent-secondary);
+  margin: 1rem 0 2rem 0;
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+}
+
+.darkProxyToggle {
+  background: transparent;
+  border: 1px solid var(--accent-danger);
+  color: var(--accent-danger);
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.darkProxyToggle:hover {
+  background: rgba(255, 0, 128, 0.1);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+  transform: translateY(-2px);
+}
+
+.darkProxyToggle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--accent-danger);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.darkProxyToggle:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* ===================================
+   AGENT GRID
+   =================================== */
+
+.agentGrid {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.agentCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.agentCard:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 30px var(--glow-primary);
+  transform: translateY(-5px);
+}
+
+.agentCard.selected {
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 40px var(--glow-secondary);
+}
+
+.agentImage {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.agentImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.agentCard:hover .agentImage img {
+  transform: scale(1.05);
+}
+
+.agentGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(0, 255, 157, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.agentCard:hover .agentGlow {
+  opacity: 1;
+}
+
+.agentInfo h3 {
+  font-size: 1.5rem;
+  color: var(--accent-primary);
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.agentTitle {
+  font-size: 0.9rem;
+  color: var(--accent-secondary);
+  margin: 0 0 1rem 0;
+  opacity: 0.8;
+}
+
+.agentDesc {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.agentStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ===================================
+   DARKPROXY OVERLAY
+   =================================== */
+
+.darkProxyOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 0, 128, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: darkProxyFadeIn 0.5s ease forwards;
+}
+
+@keyframes darkProxyFadeIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.darkProxyData {
+  background: var(--bg-void);
+  border: 1px solid var(--accent-danger);
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.darkProxyData div {
+  margin: 0.25rem 0;
+  color: var(--accent-danger);
+  font-weight: 500;
+}
+
+/* ===================================
+   NETWORK VISUALIZATION
+   =================================== */
+
+.networkSection {
+  margin-bottom: 4rem;
+}
+
+.networkContainer {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.networkPlaceholder {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(45deg, var(--bg-void) 25%, transparent 25%),
+              linear-gradient(-45deg, var(--bg-void) 25%, transparent 25%),
+              linear-gradient(45deg, transparent 75%, var(--bg-void) 75%),
+              linear-gradient(-45deg, transparent 75%, var(--bg-void) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.networkNode {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px solid var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.networkNode:hover {
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 20px var(--glow-secondary);
+  transform: scale(1.1);
+}
+
+.networkNode span {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.networkLines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.networkLines line {
+  stroke-dasharray: 5, 5;
+  animation: lineFlow 2s linear infinite;
+}
+
+@keyframes lineFlow {
+  0% { stroke-dashoffset: 10; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+
+.footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footerContent span {
+  opacity: 0.7;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .agentCard {
+    padding: 1rem;
+  }
+
+  .networkPlaceholder {
+    height: 300px;
+  }
+
+  .networkNode {
+    width: 60px;
+    height: 60px;
+    font-size: 0.7rem;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
