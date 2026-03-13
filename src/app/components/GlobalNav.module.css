@@ -1,0 +1,360 @@
+/* ===================================
+   NEOPROXY OS - GLOBAL NAVIGATION
+   =================================== */
+
+:root {
+  --nav-bg: rgba(0, 0, 0, 0.95);
+  --nav-border: #1a1a1a;
+  --nav-accent: #00ff9d;
+  --nav-secondary: #00d4ff;
+  --nav-text: #ffffff;
+  --nav-muted: #888888;
+  --nav-active: rgba(0, 255, 157, 0.15);
+}
+
+/* ===================================
+   NAVIGATION CONTAINER
+   =================================== */
+
+.globalNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: relative;
+}
+
+/* ===================================
+   NAV HEADER
+   =================================== */
+
+.navHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.neo {
+  color: var(--nav-text);
+}
+
+.proxy {
+  color: var(--nav-accent);
+}
+
+.version {
+  font-size: 0.7rem;
+  color: var(--nav-muted);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border: 1px solid var(--nav-border);
+  border-radius: 2px;
+}
+
+/* ===================================
+   NAV MENU
+   =================================== */
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--nav-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.navItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 157, 0.2), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.navItem:hover::before {
+  left: 100%;
+}
+
+.navItem:hover {
+  color: var(--nav-accent);
+  border-color: var(--nav-accent);
+  background: rgba(0, 255, 157, 0.05);
+  transform: translateY(-2px);
+}
+
+.navItem.active {
+  color: var(--nav-accent);
+  border-color: var(--nav-accent);
+  background: var(--nav-active);
+}
+
+.navItem.active .navIndicator {
+  opacity: 1;
+}
+
+.navIcon {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.navLabel {
+  font-weight: 500;
+}
+
+.navIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--nav-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ===================================
+   NAV FOOTER
+   =================================== */
+
+.navFooter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--nav-muted);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: var(--nav-accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.operator {
+  font-size: 0.7rem;
+  color: var(--nav-muted);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===================================
+   SCANLINE EFFECT
+   =================================== */
+
+.globalNav::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--nav-accent) 20%, 
+    var(--nav-secondary) 50%, 
+    var(--nav-accent) 80%, 
+    transparent
+  );
+  animation: scanline 3s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+  .globalNav {
+    height: 50px;
+  }
+
+  .navContainer {
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .version {
+    font-size: 0.6rem;
+    padding: 3px 6px;
+  }
+
+  .navMenu {
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--nav-accent) transparent;
+  }
+
+  .navMenu::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .navMenu::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .navMenu::-webkit-scrollbar-thumb {
+    background: var(--nav-accent);
+    border-radius: 10px;
+  }
+
+  .navItem {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .navIcon {
+    font-size: 0.9rem;
+  }
+
+  .status,
+  .operator {
+    font-size: 0.6rem;
+  }
+
+  .navFooter {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .globalNav {
+    height: 45px;
+  }
+
+  .navContainer {
+    padding: 0 12px;
+  }
+
+  .logo {
+    font-size: 0.9rem;
+  }
+
+  .version {
+    display: none;
+  }
+
+  .navHeader {
+    gap: 12px;
+  }
+
+  .navItem {
+    padding: 5px 10px;
+    font-size: 0.65rem;
+    gap: 4px;
+  }
+
+  .navIcon {
+    font-size: 0.8rem;
+  }
+
+  .navFooter {
+    display: none;
+  }
+}
+
+/* ===================================
+   HOVER EFFECTS FOR DIFFERENT SECTIONS
+   =================================== */
+
+.navItem[href="/concept"]:hover {
+  color: var(--nav-secondary);
+  border-color: var(--nav-secondary);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.navItem[href="/manifesto"]:hover {
+  color: #7b2fff;
+  border-color: #7b2fff;
+  background: rgba(123, 47, 255, 0.05);
+}
+
+.navItem[href="/npos"]:hover,
+.navItem[href="/npos/lab"]:hover {
+  color: var(--nav-secondary);
+  border-color: var(--nav-secondary);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.navItem[href="/fabrication"]:hover {
+  color: #ff3cac;
+  border-color: #ff3cac;
+  background: rgba(255, 60, 172, 0.05);
+}
