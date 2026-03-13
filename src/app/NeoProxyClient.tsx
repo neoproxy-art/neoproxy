@@ -16,11 +16,11 @@ export default function NeoProxyClient() {
   const [layer, setLayer] = useState('CONSOLE')
   const [glitchActive, setGlitchActive] = useState(false)
   const [aiPrompt, setAiPrompt] = useState('')
-  const [aiDesign, setAiDesign] = useState({ color: new BABYLON.Color3(0, 1, 0.617), scale: 1.0, speed: 0.005 })
+  const [aiDesign, setAiDesign] = useState({ color: new BABYLON.Color3(1, 0, 0), scale: 1.0, speed: 0.005 })
 
   const applyAiDesign = () => {
     const prompt = aiPrompt.toLowerCase()
-    let color = new BABYLON.Color3(0, 1, 0.617)
+    let color = new BABYLON.Color3(1, 0, 0) // Default rojo
     let scale = 1.0
     let speed = 0.005
 
@@ -181,8 +181,8 @@ export default function NeoProxyClient() {
     }
 
     // CORE 4D GEOMETRY - OPTIMIZED
-    const coreColor = new BABYLON.Color3(0, 1, 0.617) // #00ff9d
-    const accentColor = new BABYLON.Color3(0, 0.831, 1) // #00d4ff
+    const coreColor = new BABYLON.Color3(1, 0, 0) // #FF0000 - Rojo
+    const accentColor = new BABYLON.Color3(1, 0.2, 0.2) // #CC3333 - Rojo más claro
     
     // 1. Optimized Points (Vertices)
     const sphereBox = BABYLON.MeshBuilder.CreateSphere('p', { diameter: 0.04 }, scene)
@@ -193,12 +193,12 @@ export default function NeoProxyClient() {
     sphereBox.isVisible = false
 
     const behaviors = {
-      IDLE: { speed: 0.005, scale: 1.0, alpha: 0.5, color: new BABYLON.Color3(0, 1, 0.617) },
-      SYSTEMS: { speed: 0.02, scale: 1.3, alpha: 0.8, color: new BABYLON.Color3(0, 0.831, 1) },
-      FABRICATION: { speed: 0.01, scale: 0.8, alpha: 0.9, color: new BABYLON.Color3(1, 0.8, 0) },
-      MEMORY: { speed: 0.008, scale: 1.6, alpha: 0.3, color: new BABYLON.Color3(0.8, 0.4, 1) },
-      'R&D': { speed: 0.015, scale: 1.1, alpha: 0.7, color: new BABYLON.Color3(1, 0.2, 0.8) },
-      AI: { speed: 0.01, scale: 1.2, alpha: 0.9, color: new BABYLON.Color3(0.5, 1, 0.5) }
+      IDLE: { speed: 0.005, scale: 1.0, alpha: 0.5, color: new BABYLON.Color3(1, 0, 0) },
+      SYSTEMS: { speed: 0.02, scale: 1.3, alpha: 0.8, color: new BABYLON.Color3(0.8, 0, 0) },
+      FABRICATION: { speed: 0.01, scale: 0.8, alpha: 0.9, color: new BABYLON.Color3(1, 0.2, 0) },
+      MEMORY: { speed: 0.008, scale: 1.6, alpha: 0.3, color: new BABYLON.Color3(0.6, 0, 0) },
+      'R&D': { speed: 0.015, scale: 1.1, alpha: 0.7, color: new BABYLON.Color3(1, 0.4, 0.4) },
+      AI: { speed: 0.01, scale: 1.2, alpha: 0.9, color: new BABYLON.Color3(0.8, 0.2, 0.2) }
     }
 
     const pointInstances: BABYLON.InstancedMesh[] = []
