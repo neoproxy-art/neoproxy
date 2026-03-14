@@ -1,0 +1,426 @@
+/* ===================================
+   NEOPROXY OS - GLOBAL STYLES
+   =================================== */
+
+/* Mobile-First CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden; /* CRÍTICO: Prevenir scroll horizontal */
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px; /* Base size para mobile */
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Doble seguridad */
+}
+
+:root {
+  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-inter);
+  
+  /* AI MUTABLE TOKENS */
+  --neo-primary: #00ff9d;
+  --neo-secondary: #00d4ff;
+  --neo-background: #000000;
+  --neo-accent: #7b2fff;
+  --neo-glow: rgba(0, 255, 157, 0.3);
+  --neo-intensity: 1;
+  --neo-blur: 5px;
+  --neo-opacity: 0.8;
+  --neo-rounding: 0px;
+  --neo-border-width: 1px;
+  --neo-text: #ffffff;
+}
+
+/* ===================================
+   MAIN CONTENT LAYOUT
+   =================================== */
+
+.main-content {
+  margin-top: 60px; /* Height of global nav */
+  min-height: calc(100vh - 60px);
+  position: relative;
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--neo-background);
+  transition: background-color 1s ease;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-top: 50px; /* Height of global nav on tablet */
+    min-height: calc(100vh - 50px);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-top: 45px; /* Height of global nav on mobile */
+    min-height: calc(100vh - 45px);
+  }
+}
+
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--neo-bg);
+  color: var(--neo-text);
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color 0.5s ease, background-color 1s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ===================================
+   TYPOGRAPHY
+   =================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  transition: color 0.5s ease;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--neo-primary);
+  text-shadow: 0 0 20px var(--neo-glow);
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--neo-secondary);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--neo-accent);
+}
+
+p {
+  margin: 0 0 1rem 0;
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+a {
+  color: #00ff9d;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  color: #00d4ff;
+  border-bottom-color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* ===================================
+   BUTTONS
+   =================================== */
+
+button {
+  background: transparent;
+  border: 1px solid #00ff9d;
+  color: #00ff9d;
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:hover {
+  background: var(--neo-glow);
+  box-shadow: 0 0 calc(15px * var(--neo-intensity)) var(--neo-glow);
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===================================
+   INPUTS
+   =================================== */
+
+input, textarea {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #333333;
+  color: #ffffff;
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: #00ff9d;
+  background: rgba(0, 255, 157, 0.05);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #666666;
+}
+
+/* ===================================
+   CARDS
+   =================================== */
+
+.card {
+  background: rgba(0, 0, 0, var(--neo-opacity));
+  border: var(--neo-border-width) solid #1a1a1a;
+  border-radius: var(--neo-rounding);
+  padding: 24px;
+  backdrop-filter: blur(var(--neo-blur));
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--neo-primary);
+  box-shadow: 0 8px 24px var(--neo-glow);
+  transform: translateY(-4px);
+}
+
+/* ===================================
+   UTILITIES
+   =================================== */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.gap-6 { gap: 24px; }
+.gap-8 { gap: 32px; }
+
+.p-4 { padding: 16px; }
+.p-6 { padding: 24px; }
+.p-8 { padding: 32px; }
+
+.m-4 { margin: 16px; }
+.m-6 { margin: 24px; }
+.m-8 { margin: 32px; }
+
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
+.ml-4 { margin-left: 16px; }
+.mr-4 { margin-right: 16px; }
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 157, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 157, 0.8); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-scanline { animation: scanline 3s linear infinite; }
+.animate-glow { animation: glow 2s ease-in-out infinite; }
+.animate-fade-in { animation: fade-in 0.5s ease-out; }
+
+/* ===================================
+   SCROLLBAR
+   =================================== */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ff9d;
+  opacity: 0.5;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00d4ff;
+}
+
+/* ===================================
+   SELECTION
+   =================================== */
+
+::selection {
+  background: rgba(0, 255, 157, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(0, 255, 157, 0.3);
+  color: #ffffff;
+}
+
+/* ===================================
+   FOCUS STATES
+   =================================== */
+
+:focus-visible {
+  outline: 2px solid #00ff9d;
+  outline-offset: 2px;
+}
+
+/* ===================================
+   PAGE THEME STYLES
+   =================================== */
+
+.concept-page {
+  min-height: calc(100vh - 60px);
+  background: var(--color-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  position: relative;
+}
+
+.manifesto-page {
+  min-height: calc(100vh - 60px);
+  background-color: #050505;
+  color: #c0c0c0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 4rem 2rem;
+  overflow-y: auto;
+  position: relative;
+}
+
+.lab-page {
+  min-height: calc(100vh - 60px);
+  background: #020408;
+  color: #00d4ff;
+  font-family: 'Space Mono', monospace;
+  position: relative;
+}
+
+.fabrication-page {
+  min-height: calc(100vh - 60px);
+  background-color: #000;
+  color: #22d3ee;
+  font-family: monospace;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===================================
+   ANIMATION PREFERENCES
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,364 @@
+/* ===================================
+   NEOPROXY OS - DUAL CHAT INTERFACE
+   =================================== */
+
+.proxyChat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  height: 500px;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid #00ff9d;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+}
+
+/* ===================================
+   CHANNEL SELECTOR
+   =================================== */
+
+.channelSelector {
+  display: flex;
+  border-bottom: 1px solid #1a1a1a;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.channelButton {
+  flex: 1;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.channelButton:hover {
+  background: rgba(0, 255, 157, 0.1);
+  color: #00ff9d;
+}
+
+.channelButton.active {
+  background: rgba(0, 255, 157, 0.2);
+  color: #00ff9d;
+  border-bottom: 2px solid #00ff9d;
+}
+
+.channelButton.active:nth-child(2) {
+  color: #00d4ff;
+  border-bottom-color: #00d4ff;
+}
+
+.channelIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff0080;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ===================================
+   MESSAGES CONTAINER
+   =================================== */
+
+.messagesContainer {
+  flex: 1;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.messages {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 2px;
+  position: relative;
+  animation: messageSlide 0.3s ease;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Message Types */
+.message.cascade {
+  background: rgba(0, 255, 157, 0.1);
+  border-left: 3px solid #00ff9d;
+}
+
+.message.antigravity {
+  background: rgba(0, 212, 255, 0.1);
+  border-left: 3px solid #00d4ff;
+}
+
+.message.darkproxy {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #ffffff;
+}
+
+.message.system {
+  background: rgba(128, 128, 128, 0.1);
+  border-left: 3px solid #888888;
+  font-style: italic;
+}
+
+.messageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+.sender {
+  color: #00ff9d;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.antigravity .sender {
+  color: #00d4ff;
+}
+
+.darkproxy .sender {
+  color: #ffffff;
+}
+
+.system .sender {
+  color: #888888;
+}
+
+.timestamp {
+  color: #666;
+}
+
+.content {
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* ===================================
+   INPUT CONTAINER
+   =================================== */
+
+.inputContainer {
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.9);
+  border-top: 1px solid #1a1a1a;
+  gap: 8px;
+}
+
+.inputPrefix {
+  color: #00ff9d;
+  font-size: 10px;
+  padding: 8px 0;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #333;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 11px;
+  resize: none;
+  outline: none;
+  transition: all 0.2s ease;
+  min-height: 32px;
+  max-height: 80px;
+}
+
+.input:focus {
+  border-color: #00ff9d;
+  background: rgba(0, 255, 157, 0.05);
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+.sendButton {
+  background: transparent;
+  border: 1px solid #00ff9d;
+  color: #00ff9d;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+}
+
+.sendButton:hover:not(:disabled) {
+  background: #00ff9d;
+  color: #000000;
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+}
+
+.sendButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: #444;
+}
+
+/* ===================================
+   STATUS BAR
+   =================================== */
+
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  border-top: 1px solid #1a1a1a;
+  font-size: 9px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.exportBtn,
+.clearBtn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #666;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 8px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  border-color: #00d4ff;
+  color: #00d4ff;
+}
+
+.clearBtn:hover {
+  border-color: #ff0080;
+  color: #ff0080;
+}
+
+/* ===================================
+   SCROLLBAR
+   =================================== */
+
+.messagesContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.messagesContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb {
+  background: #00ff9d;
+  opacity: 0.5;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb:hover {
+  background: #00d4ff;
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+
+@media (max-width: 768px) {
+  .proxyChat {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  .channelButton {
+    font-size: 9px;
+    padding: 10px;
+  }
+  
+  .messages {
+    padding: 12px;
+  }
+  
+  .inputContainer {
+    padding: 8px;
+  }
+}
+
+/* ===================================
+   VISUAL EFFECTS
+   =================================== */
+
+.proxyChat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #00ff9d 20%, 
+    #00d4ff 50%, 
+    #00ff9d 80%, 
+    transparent
+  );
+  animation: scanline 3s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}

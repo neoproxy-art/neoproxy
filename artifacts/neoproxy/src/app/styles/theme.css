@@ -1,0 +1,312 @@
+/* ===================================
+   NEOPROXY OS - GLOBAL THEME SYSTEM
+   =================================== */
+
+:root {
+  /* ===================================
+     COLOR PALETTE
+     =================================== */
+  
+  /* Primary Colors */
+  --color-primary: #000000;
+  --color-primary-rgb: 0, 0, 0;
+  
+  /* Accent Colors */
+  --color-accent-primary: #00ff9d;
+  --color-accent-primary-rgb: 0, 255, 157;
+  --color-accent-secondary: #00d4ff;
+  --color-accent-secondary-rgb: 0, 212, 255;
+  --color-accent-tertiary: #7b2fff;
+  --color-accent-tertiary-rgb: 123, 47, 255;
+  --color-accent-quaternary: #ff3cac;
+  --color-accent-quaternary-rgb: 255, 60, 172;
+  --color-accent-quinary: #f0c040;
+  --color-accent-quinary-rgb: 240, 192, 64;
+  
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #888888;
+  --color-text-muted: #666666;
+  --color-text-inverse: #000000;
+  
+  /* Surface Colors */
+  --color-surface-primary: #0a0a0a;
+  --color-surface-secondary: #111111;
+  --color-surface-tertiary: #1a1a1a;
+  --color-surface-elevated: rgba(255, 255, 255, 0.05);
+  
+  /* Border Colors */
+  --color-border-primary: #1a1a1a;
+  --color-border-secondary: #333333;
+  --color-border-accent: var(--color-accent-primary);
+  
+  /* Status Colors */
+  --color-success: #00ff9d;
+  --color-warning: #f0c040;
+  --color-error: #ff0080;
+  --color-info: #00d4ff;
+  
+  /* ===================================
+     TYPOGRAPHY
+     =================================== */
+  
+  /* Font Families */
+  --font-primary: 'JetBrains Mono', 'Courier New', monospace;
+  --font-secondary: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Mono', monospace;
+  
+  /* Font Sizes */
+  --font-size-xs: 0.625rem;    /* 10px */
+  --font-size-sm: 0.75rem;     /* 12px */
+  --font-size-base: 0.875rem;  /* 14px */
+  --font-size-lg: 1rem;        /* 16px */
+  --font-size-xl: 1.125rem;    /* 18px */
+  --font-size-2xl: 1.25rem;    /* 20px */
+  --font-size-3xl: 1.5rem;     /* 24px */
+  --font-size-4xl: 2rem;       /* 32px */
+  --font-size-5xl: 2.5rem;     /* 40px */
+  --font-size-6xl: 3rem;       /* 48px */
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+  
+  /* ===================================
+     SPACING
+     =================================== */
+  
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+  
+  /* ===================================
+     BORDER RADIUS
+     =================================== */
+  
+  --radius-none: 0;
+  --radius-sm: 0.125rem;   /* 2px */
+  --radius-base: 0.25rem;  /* 4px */
+  --radius-md: 0.375rem;   /* 6px */
+  --radius-lg: 0.5rem;     /* 8px */
+  --radius-xl: 0.75rem;    /* 12px */
+  --radius-2xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+  
+  /* ===================================
+     SHADOWS
+     =================================== */
+  
+  --shadow-sm: 0 1px 2px 0 rgba(var(--color-accent-primary-rgb), 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(var(--color-accent-primary-rgb), 0.1), 0 1px 2px 0 rgba(var(--color-accent-primary-rgb), 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(var(--color-accent-primary-rgb), 0.1), 0 2px 4px -1px rgba(var(--color-accent-primary-rgb), 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(var(--color-accent-primary-rgb), 0.1), 0 4px 6px -2px rgba(var(--color-accent-primary-rgb), 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(var(--color-accent-primary-rgb), 0.1), 0 10px 10px -5px rgba(var(--color-accent-primary-rgb), 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(var(--color-accent-primary-rgb), 0.25);
+  
+  /* Glow Effects */
+  --glow-primary: 0 0 20px rgba(var(--color-accent-primary-rgb), 0.3);
+  --glow-secondary: 0 0 20px rgba(var(--color-accent-secondary-rgb), 0.3);
+  --glow-tertiary: 0 0 20px rgba(var(--color-accent-tertiary-rgb), 0.3);
+  --glow-quaternary: 0 0 20px rgba(var(--color-accent-quaternary-rgb), 0.3);
+  
+  /* ===================================
+     ANIMATIONS
+     =================================== */
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-slower: 500ms ease;
+  
+  /* ===================================
+     Z-INDEX SCALE
+     =================================== */
+  
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* ===================================
+   THEME VARIANTS
+   =================================== */
+
+/* Concept Theme */
+[data-theme="concept"] {
+  --color-accent-primary: #00ff9d;
+  --color-accent-secondary: #00d4ff;
+  --color-accent-tertiary: #7b2fff;
+}
+
+/* Manifesto Theme */
+[data-theme="manifesto"] {
+  --color-accent-primary: #06b6d4;
+  --color-accent-secondary: #22d3ee;
+  --color-accent-tertiary: #0e7490;
+}
+
+/* Lab Theme */
+[data-theme="lab"] {
+  --color-accent-primary: #00d4ff;
+  --color-accent-secondary: #00ff9d;
+  --color-accent-tertiary: #f0c040;
+}
+
+/* Fabrication Theme */
+[data-theme="fabrication"] {
+  --color-accent-primary: #22d3ee;
+  --color-accent-secondary: #ff3cac;
+  --color-accent-tertiary: #06b6d4;
+}
+
+/* ===================================
+   GLOBAL BASE STYLES
+   =================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+.text-accent-primary { color: var(--color-accent-primary); }
+.text-accent-secondary { color: var(--color-accent-secondary); }
+.text-accent-tertiary { color: var(--color-accent-tertiary); }
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted { color: var(--color-text-muted); }
+
+.bg-primary { background-color: var(--color-primary); }
+.bg-surface-primary { background-color: var(--color-surface-primary); }
+.bg-surface-secondary { background-color: var(--color-surface-secondary); }
+
+.border-accent { border-color: var(--color-accent-primary); }
+.border-secondary { border-color: var(--color-border-secondary); }
+
+.glow-primary { box-shadow: var(--glow-primary); }
+.glow-secondary { box-shadow: var(--glow-secondary); }
+
+.transition-fast { transition: all var(--transition-fast); }
+.transition-base { transition: all var(--transition-base); }
+.transition-slow { transition: all var(--transition-slow); }
+
+.font-mono { font-family: var(--font-primary); }
+.font-sans { font-family: var(--font-secondary); }
+
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+.tracking-wide { letter-spacing: var(--letter-spacing-wide); }
+.tracking-wider { letter-spacing: var(--letter-spacing-wider); }
+.tracking-widest { letter-spacing: var(--letter-spacing-widest); }
+
+/* ===================================
+   COMPONENT BASE STYLES
+   =================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--color-accent-primary);
+  background: transparent;
+  color: var(--color-accent-primary);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: var(--transition-base);
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: rgba(var(--color-accent-primary-rgb), 0.1);
+  box-shadow: var(--glow-primary);
+  transform: translateY(-1px);
+}
+
+.btn.btn-secondary {
+  border-color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
+}
+
+.btn.btn-secondary:hover {
+  background: rgba(var(--color-accent-secondary-rgb), 0.1);
+  box-shadow: var(--glow-secondary);
+}
+
+.card {
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  backdrop-filter: blur(5px);
+}
+
+.input {
+  background: transparent;
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-base);
+  transition: var(--transition-base);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent-primary);
+  box-shadow: var(--glow-primary);
+}

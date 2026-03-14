@@ -1,0 +1,343 @@
+/* NeoProxy Data Dashboard Styles */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+}
+
+.header {
+  background: rgba(0, 255, 65, 0.1);
+  border-bottom: 1px solid #00ff41;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 0 0 20px #00ff41;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 0 0;
+  opacity: 0.8;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #333;
+}
+
+.navButton {
+  background: transparent;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  background: rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 10px #00ff41;
+}
+
+.navButton.active {
+  background: #00ff41;
+  color: #000;
+  box-shadow: 0 0 15px #00ff41;
+}
+
+.main {
+  padding: 2rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #00ff41;
+}
+
+/* Overview Tab */
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.statCard {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #00ff41;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.statCard h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00ff41;
+  text-shadow: 0 0 10px #00ff41;
+}
+
+.categoriesChart {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #00ff41;
+  padding: 1.5rem;
+  border-radius: 5px;
+}
+
+.categoriesChart h3 {
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.categoryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.categoryItem {
+  background: rgba(0, 255, 65, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryName {
+  font-weight: bold;
+}
+
+.categoryCount {
+  background: #00ff41;
+  color: #000;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+/* Catalog Tab */
+.catalog {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #00ff41;
+  padding: 1.5rem;
+  border-radius: 5px;
+}
+
+.catalogHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.catalogHeader h2 {
+  margin: 0;
+}
+
+.refreshButton {
+  background: #00ff41;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.refreshButton:hover {
+  box-shadow: 0 0 10px #00ff41;
+}
+
+.catalogTable {
+  overflow-x: auto;
+}
+
+.catalogTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.catalogTable th,
+.catalogTable td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+}
+
+.catalogTable th {
+  background: rgba(0, 255, 65, 0.1);
+  font-weight: bold;
+}
+
+.catalogTable tr:hover {
+  background: rgba(0, 255, 65, 0.05);
+}
+
+.did {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #00ff41;
+}
+
+.locations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.locationBadge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Validation Tab */
+.validation {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #00ff41;
+  padding: 1.5rem;
+  border-radius: 5px;
+}
+
+.validation h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.reportTime {
+  color: #00ff41;
+  margin-bottom: 2rem;
+}
+
+.validationStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.validationCard {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #333;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.validationCard h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.validationValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.endpointSummary {
+  margin-bottom: 2rem;
+}
+
+.endpointSummary h3 {
+  margin: 0 0 1rem 0;
+}
+
+.endpointCard {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #333;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+}
+
+.endpointCard h4 {
+  margin: 0 0 0.5rem 0;
+  color: #00ff41;
+}
+
+.endpointStats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.corruptedFiles {
+  background: rgba(255, 7, 58, 0.1);
+  border: 1px solid #ff073a;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.corruptedFiles h3 {
+  margin: 0 0 1rem 0;
+  color: #ff073a;
+}
+
+.corruptedFiles ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.corruptedFiles li {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .validationStats {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogTable {
+    font-size: 0.8rem;
+  }
+
+  .catalogTable th,
+  .catalogTable td {
+    padding: 0.5rem;
+  }
+}
