@@ -1,0 +1,43 @@
+name: Deploy Instagram Bot
+
+on:
+  push:
+    paths:
+      - 'scripts/instagram_bot.py'
+      - 'scripts/README_instagram.md'
+  workflow_dispatch:
+  schedule:
+    # Hora Chile (GMT-3)
+    - cron: '0 11 * * *'  # 08:00 Chile
+    - cron: '0 16 * * *'  # 13:00 Chile  
+    - cron: '0 23 * * *'  # 20:00 Chile
+
+jobs:
+  deploy-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install instagrapi pillow requests python-dotenv
+        
+    - name: Run Instagram Bot
+      env:
+        INSTAGRAM_USER: ${{ secrets.INSTAGRAM_USER }}
+        INSTAGRAM_PASS: ${{ secrets.INSTAGRAM_PASS }}
+      run: |
+        cd scripts
+        python instagram_bot.py
+        
+    - name: Log results
+      if: always()
+      run: |
+        echo "Instagram bot execution completed at $(date)"
