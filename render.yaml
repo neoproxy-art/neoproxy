@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: neoproxy
+    runtime: node
+    buildCommand: npm install -g pnpm && pnpm install && pnpm --filter @workspace/neoproxy run build
+    startCommand: pnpm --filter @workspace/neoproxy run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
