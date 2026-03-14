@@ -57,17 +57,10 @@ export default function TheAwakening({ onComplete, skipIntro }: {
   useEffect(() => {
     if (skipIntro || !canvasRef.current) return
 
-    let engine: BABYLON.Engine
-    try {
-      engine = new BABYLON.Engine(canvasRef.current, true, {
-        preserveDrawingBuffer: true,
-        stencil: true,
-      })
-    } catch (e) {
-      // WebGL not supported — skip intro
-      onComplete()
-      return
-    }
+    const engine = new BABYLON.Engine(canvasRef.current, true, {
+      preserveDrawingBuffer: true,
+      stencil: true,
+    })
     
     const scene = new BABYLON.Scene(engine)
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 1)

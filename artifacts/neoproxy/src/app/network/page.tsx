@@ -1,10 +1,12 @@
+'use client'
+
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useEffect } from 'react';
 import styles from './network.module.css';
 
 // Dynamic import to avoid SSR issues with Three.js
-const NeoProxyNetwork = dynamic(() => import('../components/NeoProxyNetwork'), {
-  ssr: false,
+const NeoProxyNetwork = dynamic(() => import('../../components/ConstellationNavigation'), {
   loading: () => (
     <div className={styles.loading}>
       <div className={styles.loadingSpinner}></div>
@@ -14,6 +16,28 @@ const NeoProxyNetwork = dynamic(() => import('../components/NeoProxyNetwork'), {
 });
 
 export default function NetworkPage() {
+  useEffect(() => {
+    // Listener para activar transformación de serpiente en scroll
+    let hasActivatedSerpent = false;
+
+    const handleScroll = () => {
+      if (!hasActivatedSerpent && window.scrollY > 100) { // Activación después de 100px de scroll
+        if ((window as any).activateSerpentTransformation) {
+          (window as any).activateSerpentTransformation();
+          hasActivatedSerpent = true;
+        }
+      }
+    };
+
+    // Agregar listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -48,6 +72,7 @@ export default function NetworkPage() {
           <p>🖱️ Hover nodes to explore</p>
           <p>👆 Click to focus</p>
           <p>⚡ Watch the data flow</p>
+          <p>🐍 Scroll down for Serpent transformation</p>
         </div>
       </div>
 
@@ -71,5 +96,4 @@ export default function NetworkPage() {
       </div>
     </div>
   );
-}</content>
-<parameter name="filePath">/home/darkproxy/neoproxy-repo/src/app/network/page.tsx
+}

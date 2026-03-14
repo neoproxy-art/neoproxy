@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
 import * as BABYLON from 'babylonjs'
 import IntroToggle from './components/IntroToggle'
 import styles from './page.module.css'
@@ -53,16 +52,10 @@ export default function NeoProxyClient() {
     document.querySelectorAll(`.${styles.menuLabel}`).forEach(el => el.remove())
 
     // ENGINE
-    let engine: BABYLON.Engine
-    try {
-      engine = new BABYLON.Engine(canvasRef.current, true, {
-        preserveDrawingBuffer: true,
-        stencil: true,
-      })
-    } catch (e) {
-      console.warn('WebGL not supported, skipping 3D engine')
-      return
-    }
+    const engine = new BABYLON.Engine(canvasRef.current, true, {
+      preserveDrawingBuffer: true,
+      stencil: true,
+    })
     const scene = new BABYLON.Scene(engine)
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 1)
 
@@ -366,65 +359,25 @@ export default function NeoProxyClient() {
     <>
       <IntroToggle />
       <main className={`${styles.container} ${glitchActive ? styles.glitch : ''}`}>
-      <canvas ref={canvasRef} className={styles.canvas} />
-      <div className={styles.vignette} />
-      <div className={styles.noiseOverlay} />
-      <div className={styles.scanlines} />
+        <canvas ref={canvasRef} className={styles.canvas} />
+        <div className={styles.vignette} />
+        <div className={styles.noiseOverlay} />
+        <div className={styles.scanlines} />
 
-      <section className={styles.ui}>
-        <div className={styles.statusBar}>
-          <span className={styles.statusBarCursor}>NEOPROXY // CORE: {systemMode}</span>
-          <span>STATUS: {status}</span>
-        </div>
-
-        {/* Main Content */}
-        <div className={styles.mainContent}>
-          <h1 className={styles.title}>NEO<span className={styles.proxy}>PROXY</span></h1>
-          <p className={styles.subtitle}>creative operating system</p>
-
-          {/* System Status Display */}
-          <div className={styles.systemBlock}>
-            <div>LAYER: {layer}</div>
-            <div>MODE: {systemMode}</div>
-            <div>OPERATOR: darkproxy</div>
+        <section className={styles.ui}>
+          <div className={styles.statusBar}>
+            <span className={styles.statusBarCursor}>NEOPROXY // CORE: {systemMode}</span>
+            <span>STATUS: {status}</span>
           </div>
 
-          {/* AI Design Panel */}
-          {systemMode === 'AI' && (
-            <div className={styles.aiPanel}>
-              <h3>Agente de Diseño IA</h3>
-              <input
-                type="text"
-                value={aiPrompt}
-                onChange={(e) => setAiPrompt(e.target.value)}
-                placeholder="Describe el diseño (ej: red big fast)"
-                className={styles.aiInput}
-              />
-              <button onClick={applyAiDesign} className={styles.aiButton}>Aplicar Diseño IA</button>
-            </div>
-          )}
-
-          {/* System Message */}
-          <div className={styles.systemMessage}>
-            [ SYSTEM READY FOR INPUT ]
+          <div className={styles.footerStatus}>
+            // NPOS v0.2 // DEPLOYED // ENTANGLED_TESSERACT_ACTIVE
+            <span className={styles.dataTicker}>
+              <span className={styles.dataTickerInner}>{dataStream}{dataStream}</span>
+            </span>
           </div>
-
-          {/* Portal Access */}
-          <div className={styles.portalSection}>
-            <Link href="/npos" className={styles.portalButton}>
-              [ INITIATE_PROTOCOL ]
-            </Link>
-          </div>
-        </div>
-
-        <div className={styles.footerStatus}>
-          // NPOS v0.2 // DEPLOYED // ENTANGLED_TESSERACT_ACTIVE
-          <span className={styles.dataTicker}>
-            <span className={styles.dataTickerInner}>{dataStream}{dataStream}</span>
-          </span>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
     </>
   )
 }

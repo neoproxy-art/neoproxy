@@ -17,20 +17,15 @@ export default function GlobalNav() {
 
   const navItems = [
     { href: '/', label: 'HOME', icon: '⚡' },
+    { href: '/shop', label: 'SHOP', icon: '🛒' },
     { href: '/concept', label: 'CONCEPT', icon: '🧠' },
     { href: '/manifesto', label: 'MANIFESTO', icon: '📜' },
     { href: '/npos', label: 'NPOS_OS', icon: '⚙️' },
     { href: '/npos/lab', label: 'LAB', icon: '🔬' },
     { href: '/npos/fabrication', label: 'FABRICATION', icon: '🎭' },
     { href: '/night/assembly', label: 'NIGHT', icon: '🌙' },
-    { href: '/npos/research', label: 'RESEARCH', icon: '🏛️' },
-    { href: '/npos/admin', label: 'ADMIN', icon: '🛡️' },
+    { href: '/kernel', label: 'KERNEL', icon: '🧊' },
   ]
-
-  // Solo mostrar KERNEL si es admin
-  if (userRole === 'admin') {
-    navItems.push({ href: '/kernel', label: 'KERNEL', icon: '🧊' })
-  }
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
