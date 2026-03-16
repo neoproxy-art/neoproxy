@@ -1,13 +1,22 @@
-# 🐍 NEO PROXY - EXPERIENCIA UNIFICADA
+# 🌐 NeoProxy OS - Creative Operating System
 
-## 🌟 **SISTEMA COMPLETO PARA AWWARDS**
+## 🌟 **DarkProxy Art Collective**
 
-*Windsurf UX + Technical Implementation*
-*March 13, 2026*
+*Consciousness Interface • Quantum Processing • Physical Manifestation*
 
 ---
 
-## 🎯 **VISIÓN UNIFICADA**
+## 🎯 **New Repository Location**
+
+**🔗 GitHub:** https://github.com/darkproxy-art/neoproxy
+
+**🌐 Live Site:** https://neoproxy.art
+
+---
+
+## 📚 **Complete Documentation**
+
+📄 **Mega Archive:** [NEOPROXY_MEGA_DOCUMENTATION.md](./NEOPROXY_MEGA_DOCUMENTATION.md)
 
 **NeoProxy** es un sistema de red viva que combina:
 - **Arquitectura Empresarial** (Data Kernel CERN-inspired)
