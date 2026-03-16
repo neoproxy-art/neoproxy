@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import * as BABYLON from 'babylonjs'
-import IntroToggle from './components/IntroToggle'
 import styles from './page.module.css'
 
 type V4 = [number, number, number, number]
@@ -357,7 +356,6 @@ export default function NeoProxyClient() {
 
   return (
     <>
-      <IntroToggle />
       <main className={`${styles.container} ${glitchActive ? styles.glitch : ''}`}>
         <canvas ref={canvasRef} className={styles.canvas} />
         <div className={styles.vignette} />

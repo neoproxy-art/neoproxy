@@ -1,5 +1,5 @@
 {
-  "name": "neoproxy",
+  "name": "@workspace/neoproxy",
   "version": "0.1.0",
   "private": true,
   "scripts": {
