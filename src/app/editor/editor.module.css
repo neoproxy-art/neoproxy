@@ -1,0 +1,217 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2a 50%, #0a0a1a 100%);
+  color: #00ffff;
+  font-family: 'Courier New', monospace;
+  overflow-x: hidden;
+}
+
+.header {
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 2px solid #00ffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.editBtn, .saveBtn, .resetBtn {
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  border: none;
+  color: #000;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.editBtn:hover, .saveBtn:hover, .resetBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+
+.editBtn.active {
+  background: linear-gradient(45deg, #ff0000, #ffaa00);
+  animation: pulse 2s infinite;
+}
+
+.editorArea {
+  display: flex;
+  height: calc(100vh - 80px);
+}
+
+.preview {
+  flex: 1;
+  border: 2px solid #00ffff;
+  margin: 1rem;
+  border-radius: 10px;
+  overflow: auto;
+  background: rgba(0, 40, 80, 0.1);
+  position: relative;
+}
+
+.preview.editing {
+  cursor: crosshair;
+}
+
+.console {
+  width: 400px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #00ffff;
+  margin: 1rem 1rem 1rem 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', monospace;
+}
+
+.consoleHeader {
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  color: #000;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0;
+  text-align: center;
+}
+
+.consoleOutput {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.consoleLine {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.consoleInput {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid #00ffff;
+}
+
+.prompt {
+  color: #00ff00;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #00ffff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+.infoPanel {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #ff00ff;
+  border-radius: 10px;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.infoPanel h3 {
+  color: #ff00ff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.elementInfo p {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.elementInfo strong {
+  color: #00ffff;
+}
+
+.shortcuts {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  padding: 1rem;
+  max-width: 200px;
+}
+
+.shortcuts h4 {
+  color: #00ffff;
+  margin-bottom: 0.5rem;
+}
+
+.shortcuts ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shortcuts li {
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+kbd {
+  background: #333;
+  border: 1px solid #666;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-family: monospace;
+  color: #00ffff;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@media (max-width: 768px) {
+  .editorArea {
+    flex-direction: column;
+  }
+  
+  .console {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .infoPanel, .shortcuts {
+    display: none;
+  }
+}
