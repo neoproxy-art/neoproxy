@@ -4,7 +4,6 @@ import './globals.css'
 import './styles/theme.css'
 import './styles/responsive.css'
 import GlobalNav from './components/GlobalNav'
-import MobileDebug from './components/MobileDebug'
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
@@ -24,7 +23,6 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
 }
 
 export default function RootLayout({
@@ -39,7 +37,6 @@ export default function RootLayout({
         <main className="main-content">
           {children}
         </main>
-        <MobileDebug />
       </body>
     </html>
   )
