@@ -1,4 +1,4 @@
-import { JetBrains_Mono, Inter } from 'next/font/google'
+import { JetBrains_Mono, Inter, Space_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
 import './globals.css'
 import './styles/theme.css'
@@ -17,6 +17,18 @@ const inter = Inter({
   variable: '--font-sans',
 })
 
+const spaceMono = Space_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-space-mono',
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400', '600'],
+  variable: '--font-jetbrains',
+})
+
 export const metadata: Metadata = {
   title: 'NeoProxy OS // Creative Operating System',
   description: 'Sistema Operativo Creativo. Un ecosistema vivo que convierte pensamiento en geometría, geometría en materia, y materia en experiencia.',
@@ -31,8 +43,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${mono.variable} ${inter.variable}`}>
-      <body className={mono.className}>
+    <html lang="es" className={`${mono.variable} ${inter.variable} ${spaceMono.variable} ${jetbrains.variable}`}>
+      <body className={`${mono.className} ${spaceMono.className} ${jetbrains.className}`}>
         <GlobalNav />
         <main className="main-content">
           {children}
