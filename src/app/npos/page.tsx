@@ -10,6 +10,12 @@ const modules = [
     desc: 'Laboratorio de geometría. Exploración procedural: algoritmos, formas caóticas, esculturas matemáticas.',
   },
   {
+    href: '/npos/stardust',
+    icon: '✨',
+    name: 'Stardust Engine',
+    desc: 'Motor de partículas y geometría cuántica. Renderizado PBR de alta fidelidad con consola de comandos neural.',
+  },
+  {
     href: '/npos/fabrication',
     icon: '🔧',
     name: 'Fabrication Lab',
