@@ -9,6 +9,7 @@ out-tsc
 .expo-shared
 
 # dependencies
+node_modules/
 /node_modules
 /.pnp
 .pnp.*
@@ -23,6 +24,7 @@ node_modules
 /coverage
 
 # next.js
+.next/
 /.next/
 /out/
 /build

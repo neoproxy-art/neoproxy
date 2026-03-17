@@ -1,7 +1,0 @@
-1:"$Sreact.fragment"
-2:I[22016,["/_next/static/chunks/1ba821bf9e6f2de5.js"],""]
-3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-:HL["/_next/static/chunks/717c9cc7e800c0a5.css","style"]
-0:{"buildId":"83pFb9EqFGJp_1-Knr8oT","rsc":["$","$1","c",{"children":[["$","main",null,{"className":"portal-module__z7u4_G__main","children":["$","div",null,{"className":"portal-module__z7u4_G__card","children":[["$","div",null,{"className":"portal-module__z7u4_G__header","children":"CONNECTION SECURE"}],["$","h1",null,{"className":"portal-module__z7u4_G__title","children":"NEO·PROXY"}],["$","p",null,{"className":"portal-module__z7u4_G__subtitle","children":"Systems & Fabrication Architect"}],["$","div",null,{"className":"portal-module__z7u4_G__actions","children":[["$","a",null,{"href":"/contact.vcf","download":true,"className":"portal-module__z7u4_G__button portal-module__z7u4_G__primary","children":"[ SAVE CONTACT ]"}],["$","a",null,{"href":"#","className":"portal-module__z7u4_G__button","children":"WHATSAPP"}],["$","$L2",null,{"href":"/","className":"portal-module__z7u4_G__button","children":"ACCESS SYSTEM"}]]}],["$","div",null,{"className":"portal-module__z7u4_G__footer","children":"ID: 884-291-X // ENCRYPTED"}]]}]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/717c9cc7e800c0a5.css","precedence":"next"}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null
