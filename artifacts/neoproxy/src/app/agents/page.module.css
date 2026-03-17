@@ -2,25 +2,7 @@
    NEOPROXY AGENTS PAGE - CYBERPUNK DESIGN
    =================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
-
-:global(:root) {
-  --bg-primary: #000000;
-  --bg-void: #030308;
-  --bg-surface: #0a0a0f;
-  --bg-panel: rgba(10, 10, 15, 0.95);
-  --accent-primary: #00ff9d;
-  --accent-secondary: #00d4ff;
-  --accent-warm: #ff9d00;
-  --accent-danger: #ff0080;
-  --accent-purple: #8000ff;
-  --text-primary: #e8e8ec;
-  --text-muted: #5a5a6e;
-  --border-color: #1a1a24;
-  --glow-primary: rgba(0, 255, 157, 0.3);
-  --glow-secondary: rgba(0, 212, 255, 0.3);
-  --glow-warm: rgba(255, 157, 0, 0.3);
-}
+/* Using NeoProxy Core Tokens from globals.css */
 
 /* ===================================
    LAYOUT & STRUCTURE
@@ -28,9 +10,9 @@
 
 .main {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-void) 50%, var(--bg-surface) 100%);
-  color: var(--text-primary);
-  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  background: linear-gradient(135deg, var(--np-black) 0%, var(--np-void) 50%, var(--np-surface) 100%);
+  color: var(--np-text);
+  font-family: 'JetBrains Mono', monospace;
   position: relative;
   overflow-x: hidden;
 }

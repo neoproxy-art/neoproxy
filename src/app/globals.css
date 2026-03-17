@@ -65,18 +65,44 @@ h6 {
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-inter);
   
-  /* AI MUTABLE TOKENS */
-  --neo-primary: #00ff9d;
-  --neo-secondary: #00d4ff;
-  --neo-background: #000000;
-  --neo-accent: #7b2fff;
-  --neo-glow: rgba(0, 255, 157, 0.3);
-  --neo-intensity: 1;
-  --neo-blur: 5px;
-  --neo-opacity: 0.8;
-  --neo-rounding: 0px;
-  --neo-border-width: 1px;
-  --neo-text: #ffffff;
+  /* --- NEOPROXY CORE TOKENS --- */
+  /* VOID: La base del espacio */
+  --np-void: #030308;
+  --np-black: #000000;
+  --np-surface: #0a0a0a;
+  --np-bg: var(--np-black);
+
+  /* ENERGY: Los flujos de datos */
+  --np-cyan: #00d4ff;    /* Conectividad */
+  --np-magenta: #c800ff; /* Procesamiento Mecha */
+  --np-green: #00ff88;   /* Sistema Online */
+  --np-primary: #00ff9d; /* Neo green */
+  --np-secondary: #00d4ff; /* Neo cyan */
+  --np-accent: #7b2fff; /* Neo purple */
+  
+  /* INTERFACE: El HUD */
+  --np-border: #1a1a1a;
+  --np-text: #ffffff;
+  --np-text-dim: #666666;
+  --np-glow: rgba(0, 255, 157, 0.3);
+  --np-intensity: 1;
+  --np-blur: 5px;
+  --np-opacity: 0.8;
+  --np-rounding: 0px;
+  --np-border-width: 1px;
+
+  /* AI MUTABLE TOKENS (Legacy compatibility) */
+  --neo-primary: var(--np-primary);
+  --neo-secondary: var(--np-secondary);
+  --neo-background: var(--np-black);
+  --neo-accent: var(--np-accent);
+  --neo-glow: var(--np-glow);
+  --neo-intensity: var(--np-intensity);
+  --neo-blur: var(--np-blur);
+  --neo-opacity: var(--np-opacity);
+  --neo-rounding: var(--np-rounding);
+  --neo-border-width: var(--np-border-width);
+  --neo-text: var(--np-text);
 }
 
 /* ===================================
@@ -373,6 +399,19 @@ input::placeholder, textarea::placeholder {
 }
 
 /* ===================================
+   KBD STYLES
+   =================================== */
+
+kbd {
+  background: #333;
+  border: 1px solid #666;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-family: monospace;
+  color: #00ffff;
+}
+
+/* ===================================
    PAGE THEME STYLES
    =================================== */
 
@@ -409,6 +448,17 @@ input::placeholder, textarea::placeholder {
   font-family: monospace;
   overflow: hidden;
   position: relative;
+}
+
+/* ===================================
+   ANOMALY MODE - SYSTEM MUTATION
+   =================================== */
+
+body.anomaly {
+  --np-cyan: #ff4400; /* El cian de conectividad pasa a naranja de alerta */
+  --np-surface: #1a0505;
+  --np-border: #ff2200;
+  --np-glow: rgba(255, 68, 0, 0.4);
 }
 
 /* ===================================

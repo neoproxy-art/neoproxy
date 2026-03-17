@@ -2,15 +2,7 @@
    NEOPROXY OS - GLOBAL NAVIGATION
    =================================== */
 
-:global(:root) {
-  --nav-bg: rgba(0, 0, 0, 0.95);
-  --nav-border: #1a1a1a;
-  --nav-accent: #00ff9d;
-  --nav-secondary: #00d4ff;
-  --nav-text: #ffffff;
-  --nav-muted: #888888;
-  --nav-active: rgba(0, 255, 157, 0.15);
-}
+/* Using NeoProxy Core Tokens from globals.css */
 
 /* ===================================
    NAVIGATION CONTAINER

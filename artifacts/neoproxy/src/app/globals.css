@@ -65,18 +65,74 @@ h6 {
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-inter);
   
-  /* AI MUTABLE TOKENS */
-  --neo-primary: #00ff9d;
-  --neo-secondary: #00d4ff;
-  --neo-background: #000000;
-  --neo-accent: #7b2fff;
-  --neo-glow: rgba(0, 255, 157, 0.3);
-  --neo-intensity: 1;
-  --neo-blur: 5px;
-  --neo-opacity: 0.8;
-  --neo-rounding: 0px;
-  --neo-border-width: 1px;
-  --neo-text: #ffffff;
+  /* --- NEOPROXY CORE TOKENS --- */
+  /* VOID: La base del espacio */
+  --np-void: #030308;
+  --np-black: #000000;
+  --np-surface: #0a0a0a;
+  --np-bg: #000000;
+  --bg-primary: #000000;
+  --bg-void: #030308;
+  --bg-surface: #0a0a0a;
+  --bg-panel: rgba(10, 10, 15, 0.95);
+
+  /* ENERGY: Los flujos de datos */
+  --np-cyan: #00d4ff;
+  --np-magenta: #c800ff;
+  --np-green: #00ff88;
+  --np-primary: #00ff9d;
+  --np-secondary: #00d4ff;
+  --np-accent: #7b2fff;
+  --accent-primary: #00ff9d;
+  --accent-secondary: #00d4ff;
+  --accent-tertiary: #7b2fff;
+  --accent-quaternary: #ff3cac;
+  --accent-quinary: #f0c040;
+  --accent-warm: #ff9d00;
+  --accent-danger: #ff0080;
+  --accent-purple: #8000ff;
+
+  /* INTERFACE: El HUD */
+  --np-border: #1a1a1a;
+  --np-text: #ffffff;
+  --np-text-dim: #666666;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --text-muted: #666666;
+  --border-color: #1a1a1a;
+  --nav-bg: rgba(0, 0, 0, 0.95);
+  --nav-border: #1a1a1a;
+  --nav-accent: #00ff9d;
+  --nav-secondary: #00d4ff;
+  --nav-text: #ffffff;
+  --nav-muted: #888888;
+  --nav-active: rgba(0, 255, 157, 0.15);
+
+  /* EFFECTS */
+  --np-glow: rgba(0, 255, 157, 0.3);
+  --np-intensity: 1;
+  --np-blur: 5px;
+  --np-opacity: 0.8;
+  --np-rounding: 0px;
+  --np-border-width: 1px;
+  --glow-primary: rgba(0, 255, 157, 0.3);
+  --glow-secondary: rgba(0, 212, 255, 0.3);
+  --glow-warm: rgba(255, 157, 0, 0.3);
+  --glow-danger: rgba(255, 0, 128, 0.3);
+  --glitch-color: #ff0080;
+
+  /* AI MUTABLE TOKENS (Legacy compatibility) */
+  --neo-primary: var(--np-primary);
+  --neo-secondary: var(--np-secondary);
+  --neo-background: var(--np-black);
+  --neo-accent: var(--np-accent);
+  --neo-glow: var(--np-glow);
+  --neo-intensity: var(--np-intensity);
+  --neo-blur: var(--np-blur);
+  --neo-opacity: var(--np-opacity);
+  --neo-rounding: var(--np-rounding);
+  --neo-border-width: var(--np-border-width);
+  --neo-text: var(--np-text);
 }
 
 /* ===================================
@@ -423,4 +479,35 @@ input::placeholder, textarea::placeholder {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ===================================
+   ANOMALY MODE - SYSTEM MUTATION
+   =================================== */
+
+body.anomaly {
+  --np-cyan: #ff4400; /* El cian de conectividad pasa a naranja de alerta */
+  --np-surface: #1a0505;
+  --np-border: #ff2200;
+  --np-glow: rgba(255, 68, 0, 0.4);
+  --accent-primary: #ff4400;
+  --accent-secondary: #ff6600;
+  --glow-primary: rgba(255, 68, 0, 0.4);
+}
+
+/* ===================================
+   ADDITIONAL LEGACY VARIABLES (Build Protocol)
+   =================================== */
+
+:root {
+  --bg-primary: #000000;
+  --bg-void: #030308;
+  --bg-surface: #0a0a0a;
+  --nav-bg: rgba(0, 0, 0, 0.95);
+  --nav-border: #1a1a1a;
+}
+
+kbd {
+  background: #333;
+  border: 1px solid #666;
 }

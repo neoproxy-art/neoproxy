@@ -7,7 +7,7 @@ const apiZodSrc = path.resolve(root, "lib", "api-zod", "src");
 
 // Our exports make assumptions about the title of the API being "Api" (i.e. generated output is `api.ts`).
 const titleTransformer: InputTransformerFn = (config) => {
-  config.info ??= {};
+  config.info = config.info || {};
   config.info.title = "Api";
 
   return config;
@@ -51,7 +51,7 @@ export default defineConfig({
       workspace: apiZodSrc,
       client: "zod",
       target: "generated",
-      schemas: { path: "generated/types", type: "typescript" },
+      schemas: "generated/types",
       mode: "split",
       clean: true,
       prettier: true,

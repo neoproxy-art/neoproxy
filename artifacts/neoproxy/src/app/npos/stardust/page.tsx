@@ -172,7 +172,9 @@ export default function StardustPage() {
         camera.attachControl(canvasRef.current, true);
         cameraRef.current = camera;
         camera.useAutoRotationBehavior = true;
-        camera.autoRotationBehavior.idleRotationSpeed = 0.1;
+        if (camera.autoRotationBehavior) {
+          camera.autoRotationBehavior.idleRotationSpeed = 0.1;
+        }
 
         const light = new BABYLON.PointLight("light", new BABYLON.Vector3(0, 15, 0), scene);
         light.intensity = 0.8;

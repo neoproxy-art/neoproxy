@@ -2,20 +2,7 @@
    NEOPROXY OS - CONCEPT PAGE
    =================================== */
 
-:global(:root) {
-  --bg-primary: #000000;
-  --bg-surface: #0a0a0a;
-  --accent-primary: #00ff9d;
-  --accent-secondary: #00d4ff;
-  --accent-tertiary: #7b2fff;
-  --accent-quaternary: #ff3cac;
-  --accent-quinary: #f0c040;
-  --text-primary: #ffffff;
-  --text-secondary: #888888;
-  --text-muted: #666666;
-  --border-color: #1a1a1a;
-  --glitch-color: #ff0080;
-}
+/* Using NeoProxy Core Tokens from globals.css */
 
 /* ===================================
    LAYOUT & STRUCTURE
@@ -1532,19 +1519,6 @@
    SCROLLBAR
    =================================== */
 
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--accent-primary);
-  opacity: 0.5;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-secondary);
-}
+/* ===================================
+   SCROLLBAR (moved to globals.css)
+   =================================== */
