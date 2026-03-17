@@ -25,7 +25,7 @@
     "chroma-js": "^3.2.0",
     "cors": "^2.8.6",
     "d3": "^7.9.0",
-    "drizzle-kit": "^0.31.10",
+    "drizzle-kit": "0.31.0",
     "drizzle-orm": "^0.45.1",
     "express": "^5.2.1",
     "gsap": "^3.14.2",
