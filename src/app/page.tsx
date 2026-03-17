@@ -64,15 +64,15 @@ export default function Page() {
             <div className={styles.projectStatus}>Beta</div>
           </div>
 
-          {/* Lab */}
-          <div className={styles.projectCard}>
+          {/* Lab / NPos */}
+          <Link href="/npos" className={styles.projectCard}>
             <div className={styles.projectIcon}>🔬</div>
-            <h3 className={styles.projectTitle}>NeoProxy Lab</h3>
+            <h3 className={styles.projectTitle}>NPos / Lab</h3>
             <p className={styles.projectDesc}>
-              Investigación y desarrollo
+              Creative OS & Generative R&D. Exploración de algoritmos y geometría.
             </p>
             <div className={styles.projectStatus}>Activo</div>
-          </div>
+          </Link>
         </div>
       </section>
 

@@ -2,7 +2,7 @@
    NEOPROXY OS - CONCEPT PAGE
    =================================== */
 
-:root {
+:global(:root) {
   --bg-primary: #000000;
   --bg-surface: #0a0a0a;
   --accent-primary: #00ff9d;

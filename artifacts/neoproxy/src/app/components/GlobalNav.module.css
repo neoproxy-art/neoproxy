@@ -2,7 +2,7 @@
    NEOPROXY OS - GLOBAL NAVIGATION
    =================================== */
 
-:root {
+:global(:root) {
   --nav-bg: rgba(0, 0, 0, 0.95);
   --nav-border: #1a1a1a;
   --nav-accent: #00ff9d;
