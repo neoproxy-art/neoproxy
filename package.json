@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@babylonjs/core": "^8.55.3",
-    "@babylonjs/loaders": "^8.55.3",
+    "@babylonjs/core": "8.54.0",
+    "@babylonjs/loaders": "8.54.0",
     "@react-three/drei": "^9.88.17",
     "@react-three/fiber": "^8.15.11",
     "@tanstack/react-query": "^5.90.21",
@@ -18,9 +18,9 @@
     "@types/three": "^0.160.0",
     "@xenova/transformers": "^2.17.2",
     "@xstate/react": "^6.1.0",
-    "babylonjs": "^8.46.2",
-    "babylonjs-loaders": "^8.48.1",
-    "babylonjs-materials": "^8.48.1",
+    "babylonjs": "8.46.2",
+    "babylonjs-loaders": "8.48.1",
+    "babylonjs-materials": "8.48.1",
     "better-sqlite3": "^12.6.2",
     "chroma-js": "^3.2.0",
     "cors": "^2.8.6",
