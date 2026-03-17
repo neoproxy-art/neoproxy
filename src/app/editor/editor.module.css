@@ -187,7 +187,7 @@
   color: #ccc;
 }
 
-kbd {
+:global(kbd) {
   background: #333;
   border: 1px solid #666;
   border-radius: 3px;
