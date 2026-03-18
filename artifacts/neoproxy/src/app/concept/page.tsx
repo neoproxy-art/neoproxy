@@ -70,7 +70,7 @@ export default function ConceptPage() {
               </div>
               <div className={styles.axiom}>
                 <span className={styles.axiomNumber}>05</span>
-                Nada grita "haz click"
+                Nada compite por tu atención.
               </div>
             </div>
           </div>
@@ -149,30 +149,6 @@ export default function ConceptPage() {
               </div>
             </div>
             
-            <div className={styles.visualIdentity}>
-              <h3>VISUAL PROTOCOL</h3>
-              <div className={styles.colorPalette}>
-                <div className={styles.color} style={{ background: '#000000' }}>
-                  <span>BLACK</span>
-                </div>
-                <div className={styles.color} style={{ background: '#00ff9d' }}>
-                  <span>TERMINAL_GREEN</span>
-                </div>
-                <div className={styles.color} style={{ background: '#00d4ff' }}>
-                  <span>CYAN</span>
-                </div>
-                <div className={styles.color} style={{ background: '#111111' }}>
-                  <span>DARK_GRAY</span>
-                </div>
-                <div className={styles.color} style={{ background: '#ffffff', opacity: 0.2 }}>
-                  <span>WHITE_20%</span>
-                </div>
-              </div>
-              <div className={styles.symbol}>
-                <h4>SYMBOL: ENTANGLED TESSERACT</h4>
-                <p>El hipercubo 4D representa la emergencia de realidades superpuestas y la naturaleza distribuida del sistema.</p>
-              </div>
-            </div>
           </div>
         </section>
 
