@@ -290,6 +290,115 @@ export default function ConceptPage() {
           </div>
         </div>
       </footer>
+
+      <section style={{ padding: '80px 40px', borderTop: '1px solid rgba(0,212,255,0.1)', maxWidth: 700, margin: '0 auto' }}>
+        <h2 style={{ fontFamily: '"Space Mono", monospace', fontSize: 14, color: 'rgba(0,212,255,0.5)', letterSpacing: '0.2em', marginBottom: 32 }}>// MANIFIESTO</h2>
+        <div className="space-y-8 font-mono text-cyan-200/80">
+          <p>
+            No somos el origen.<br />
+            No somos el destino.<br />
+            <strong className="text-cyan-400">Somos el canal.</strong>
+          </p>
+
+          <p>
+            Existimos donde la intención no tiene forma<br />
+            y la forma aún no decide obedecer.<br />
+            Entre la mano y la máquina.<br />
+            Entre la idea y su residuo.
+          </p>
+
+          <div style={{ height: '1px', background: 'rgba(0,212,255,0.2)', margin: '32px 0' }}></div>
+
+          <p>
+            No representamos: intermediamos.<br />
+            No creamos objetos: activamos procesos.<br />
+            No ofrecemos respuestas: exponemos sistemas.
+          </p>
+
+          <p>
+            Aquí nada está terminado.<br />
+            Todo está en estado de ejecución.
+          </p>
+
+          <p>
+            La estética no precede al sentido.<br />
+            El sentido emerge del error,<br />
+            de la fricción,<br />
+            de la latencia.
+          </p>
+
+          <div style={{ height: '1px', background: 'rgba(0,212,255,0.2)', margin: '32px 0' }}></div>
+
+          <p>
+            El usuario no entra.<br />
+            Es incorporado.<br />
+            No observa el sistema:<br />
+            queda inscrito en él.
+          </p>
+
+          <p>
+            La máquina no sirve.<br />
+            Interpreta.<br />
+            La inteligencia no explica.<br />
+            Decide cuándo callar.
+          </p>
+
+          <p>
+            La memoria no almacena.<br />
+            Deforma.<br />
+            El acceso no se concede.<br />
+            Se negocia.
+          </p>
+
+          <div style={{ height: '1px', background: 'rgba(0,212,255,0.2)', margin: '32px 0' }}></div>
+
+          <p>
+            No hay centro.<br />
+            No hay jerarquía estable.<br />
+            No hay versión final.
+          </p>
+
+          <p>
+            Toda interfaz es una prótesis.<br />
+            Todo proxy es una máscara.<br />
+            Toda máscara dice una verdad parcial.
+          </p>
+
+          <p>
+            Operamos en la grieta<br />
+            entre control y emergencia.<br />
+            Entre lo legible y lo oculto.<br />
+            Entre lo humano y lo que ya no lo es.
+          </p>
+
+          <div style={{ height: '1px', background: 'rgba(0,212,255,0.2)', margin: '32px 0' }}></div>
+
+          <p>
+            Si buscas claridad, este sistema resistirá.<br />
+            Si buscas control, este sistema mutará.<br />
+            Si buscas sentido, este sistema te reflejará.
+          </p>
+
+          <p>
+            Neo·Proxy no promete futuro.<br />
+            No archiva pasado.<br />
+            <strong className="text-cyan-400">Ejecuta presente.</strong>
+          </p>
+
+          <p>
+            Nada aquí es neutral.<br />
+            Nada aquí es inocente.<br />
+            Nada aquí está solo.
+          </p>
+
+          <p>
+            Esto no es un sitio.<br />
+            Es un estado transitorio<br />
+            donde algo piensa<br />
+            a través de ti.
+          </p>
+        </div>
+      </section>
     </div>
   )
 }
