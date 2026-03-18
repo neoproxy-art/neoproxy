@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model SceneConfig {
+  id            String   @id @default(cuid())
+  name          String
+  isActive      Boolean  @default(false)
+  rotationSpeed Float    @default(0.004)
+  edgeOpacity   Float    @default(0.25)
+  edgeColor     String   @default("#0080cc")
+  nodeColor     String   @default("#00d4ff")
+  bgColor       String   @default("#00000a")
+  ambientColor  String   @default("#00d4ff")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  icon        String
+  href        String
+  status      String   @default("ONLINE")
+  order       Int      @default(0)
+  visible     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
