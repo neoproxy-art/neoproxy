@@ -20,16 +20,20 @@ export default function ConceptPage() {
           <h1 className={styles.title}>
             <span className={styles.neo}>NEO</span><span className={styles.proxy}>PROXY</span>
           </h1>
-          <div className={styles.subtitle}>CREATIVE OPERATING SYSTEM</div>
-          <div className={styles.version}>v0.2 // ENTANGLED_TESSERACT_ACTIVE</div>
+          <div className={styles.subtitle} style={{ textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            Un sistema donde el código, la materia y el sonido son lo mismo
+          </div>
+          <div className={styles.version} style={{ marginTop: 16, color: 'rgba(255,255,255,0.7)', textTransform: 'none', maxWidth: 600, lineHeight: 1.6 }}>
+            NeoProxy es un laboratorio creativo donde diseño 3D, inteligencia artificial y fabricación física convergen en un solo ecosistema.
+          </div>
         </div>
       </header>
 
       {/* Navigation */}
       <nav className={styles.conceptNav}>
-        <a href="#philosophy" className={styles.navLink}>[PHILOSOPHY]</a>
-        <a href="#architecture" className={styles.navLink}>[ARCHITECTURE]</a>
-        <a href="#identity" className={styles.navLink}>[IDENTITY]</a>
+        <a href="#philosophy" className={styles.navLink}>[QUÉ ES]</a>
+        <a href="#architecture" className={styles.navLink}>[CÓMO FUNCIONA]</a>
+        <a href="#identity" className={styles.navLink}>[QUIÉN]</a>
         <a href="#ecosystem" className={styles.navLink}>[ECOSYSTEM]</a>
         <a href="#manifesto" className={styles.navLink}>[MANIFESTO]</a>
       </nav>
@@ -40,19 +44,12 @@ export default function ConceptPage() {
         <section id="philosophy" className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <span className={styles.lineNumber}>01</span>
-            PHILOSOPHY
+            QUÉ ES
           </h2>
           <div className={styles.sectionContent}>
             <p className={styles.conceptText}>
-              NeoProxy no es solo una web, es un <strong>Sistema Operativo Creativo</strong> completo 
-              que funciona como un ecosistema vivo que convierte pensamiento en geometría, 
-              geometría en materia, y materia en experiencia.
+              Cada objeto físico que ves aquí nació como dato. Cada visualización 3D puede convertirse en algo que puedes sostener. El laboratorio conecta esos dos mundos — el digital y el físico — en tiempo real.
             </p>
-            <blockquote className={styles.manifestoQuote}>
-              "Tu taller, tu computadora y tu web son un solo sistema.<br/>
-              IA + geometría + impresión física.<br/>
-              Muy poca gente une esas tres cosas."
-            </blockquote>
             <div className={styles.axiomList}>
               <h3>AXIOMS</h3>
               <div className={styles.axiom}>
@@ -83,9 +80,12 @@ export default function ConceptPage() {
         <section id="architecture" className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <span className={styles.lineNumber}>02</span>
-            ARCHITECTURE
+            CÓMO FUNCIONA
           </h2>
           <div className={styles.sectionContent}>
+            <p className={styles.conceptText} style={{ marginBottom: 32 }}>
+              Una base de datos controla la escena 3D. Los objetos impresos tienen ficha digital. Los experimentos de audio generan geometría. Todo habla con todo.
+            </p>
             <div className={styles.layers}>
               <div className={styles.layer}>
                 <div className={styles.layerNumber}>LAYER 01</div>
@@ -120,9 +120,12 @@ export default function ConceptPage() {
         <section id="identity" className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <span className={styles.lineNumber}>03</span>
-            IDENTITY
+            QUIÉN
           </h2>
           <div className={styles.sectionContent}>
+            <p className={styles.conceptText} style={{ marginBottom: 32 }}>
+              Darkproxy. Diseñador, programador, fabricante. Este es mi laboratorio personal — abierto al público.
+            </p>
             <div className={styles.identityGrid}>
               <div className={styles.identityCard}>
                 <div className={styles.idNumber}>01</div>
