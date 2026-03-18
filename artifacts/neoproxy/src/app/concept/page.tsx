@@ -291,9 +291,10 @@ export default function ConceptPage() {
         </div>
       </footer>
 
-      <section style={{ padding: '80px 40px', borderTop: '1px solid rgba(0,212,255,0.1)', maxWidth: 700, margin: '0 auto' }}>
-        <h2 style={{ fontFamily: '"Space Mono", monospace', fontSize: 14, color: 'rgba(0,212,255,0.5)', letterSpacing: '0.2em', marginBottom: 32 }}>// MANIFIESTO</h2>
-        <div className="space-y-8 font-mono text-cyan-200/80">
+      <section style={{ padding: '80px 40px', borderTop: '1px solid rgba(0,212,255,0.1)', maxWidth: 700, margin: '0 auto', fontFamily: 'monospace' }}>
+        <div style={{ fontSize: 9, color: 'rgba(0,212,255,0.4)', letterSpacing: '0.2em', marginBottom: 24 }}>// MANIFIESTO NEO·PROXY</div>
+        
+        <div className="space-y-8" style={{ color: 'rgba(0,212,255,0.7)', lineHeight: 2 }}>
           <p>
             No somos el origen.<br />
             No somos el destino.<br />
