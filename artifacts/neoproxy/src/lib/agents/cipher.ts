@@ -1,4 +1,4 @@
-import { Chronos } from '../db';
+
 
 /**
  * Agent: Cipher (Cryptography & Blockchain)
@@ -29,11 +29,11 @@ export const Cipher = {
     const lineageHash = Cipher.generateLineageHash(params);
     
     // 2. Start pending record in DB via Chronos
-    await Chronos.startMinting(artifactId, wallet);
-    await Chronos.logAgentActivity('cipher', 'mint_initiated', `Minting protocol started for ${artifactId}`, { 
-      wallet, 
-      lineageHash 
-    });
+    // await Chronos.startMinting(artifactId, wallet);
+    // await Chronos.logAgentActivity('cipher', 'mint_initiated', `Minting protocol started for ${artifactId}`, { 
+    //   wallet, 
+    //   lineageHash 
+    // });
 
     // 3. Mocking Blockchain Lag / Interaction
     const mockTxHash = `0x${Math.random().toString(16).substr(2, 64)}`;
@@ -69,8 +69,8 @@ export const Cipher = {
    * Finalizes the minting status.
    */
   confirmMint: async (artifactId: string, tokenId: number, txHash: string) => {
-    await Chronos.updateMintStatus(artifactId, tokenId, txHash, 'SUCCESS');
-    await Chronos.logAgentActivity('cipher', 'mint_success', `Token ${tokenId} successfully minted and bound to wallet.`);
+    // await Chronos.updateMintStatus(artifactId, tokenId, txHash, 'SUCCESS');
+    // await Chronos.logAgentActivity('cipher', 'mint_success', `Token ${tokenId} successfully minted and bound to wallet.`);
     
     return { success: true };
   }

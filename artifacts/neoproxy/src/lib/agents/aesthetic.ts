@@ -1,5 +1,4 @@
 import chroma from 'chroma-js';
-import { Chronos } from '../db';
 
 // Brain.js simulation for style genome processing
 class BrainSimulator {

@@ -1,4 +1,4 @@
-import { Chronos } from '../db';
+
 
 /**
  * Agent: Oracle (Data Intelligence & Analytics)
@@ -10,7 +10,8 @@ export const Oracle = {
    * Analyzes the last N artifacts to find common aesthetic patterns.
    */
   analyzeAestheticTrends: async (limit = 20) => {
-    const artifacts = await Chronos.getArtifacts();
+    // const artifacts = await Chronos.getArtifacts();
+    const artifacts: any[] = []; // Mock data for now
     const recent = artifacts.slice(0, limit);
     
     // Simple frequency analysis for styles
@@ -31,7 +32,8 @@ export const Oracle = {
    * Build the genetic tree of artifacts based on parent_id and style similarity.
    */
   getArtifactGenealogy: async () => {
-    const artifacts = await Chronos.getArtifacts();
+    // const artifacts = await Chronos.getArtifacts();
+    const artifacts: any[] = []; // Mock data for now
     
     // Transformation for D3.js Tree/Graph structures
     const nodes = artifacts.map((art: any) => ({
@@ -94,7 +96,8 @@ export const Oracle = {
    * Monitors the live process flow (Pipeline status).
    */
   getRealtimeProcessState: async () => {
-    const logs = await Chronos.getRecentLogs(10);
+    // const logs = await Chronos.getRecentLogs(10);
+    const logs: any[] = []; // Mock data for now
     const activePipeline = logs.some((l: any) => l.event_type.includes('mutation') || l.event_type.includes('mint'));
 
     return {
@@ -142,10 +145,11 @@ export const Oracle = {
   },
 
   /**
-   * Generates time-series data for the growth of artifacts in Chronos.
+   * Generates time-series data for the growth of artifacts in // Chronos.
    */
   getSystemEvolution: async () => {
-    const artifacts = await Chronos.getArtifacts();
+    // const artifacts = await Chronos.getArtifacts();
+    const artifacts: any[] = []; // Mock data for now
     
     // Group by day
     const evolution: Record<string, number> = {};
@@ -199,7 +203,8 @@ export const Oracle = {
     ];
 
     // 2. Fetch recent artifacts to connect to Memory
-    const artifacts = await Chronos.getArtifacts();
+    // const artifacts = await Chronos.getArtifacts();
+    const artifacts: any[] = []; // Mock data for now
     artifacts.slice(0, 10).forEach((art: any) => {
       nodes.push({ id: art.id, name: art.name, type: 'ARTIFACT', group: 'mem' });
       links.push({ source: 'mem', target: art.id });
@@ -212,7 +217,8 @@ export const Oracle = {
    * Interprets system logs to detect anomalies or "Stability Breaches".
    */
   diagnoseSystemHealth: async () => {
-    const logs = await Chronos.getRecentLogs(100);
+    // const logs = await Chronos.getRecentLogs(100);
+    const logs: any[] = []; // Mock data for now
     const errors = logs.filter((l: any) => l.event_type.includes('error') || l.event_type.includes('panic'));
     
     return {

@@ -36,7 +36,7 @@ export default function MintingPortal({ specimen, onSuccess }: MintingPortalProp
   const finalize = async () => {
     try {
       const result = await Cipher.requestMint(specimen.name, wallet, { name: specimen.name, path: specimen.path })
-      await Cipher.confirmMint(specimen.name, result.tokenId, result.txHash)
+      // await Cipher.confirmMint(specimen.name, result.tokenId, result.txHash)
       setStep('SUCCESS')
       onSuccess(result)
     } catch (e) {
