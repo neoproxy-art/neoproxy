@@ -18,6 +18,7 @@ export default function GlobalNav() {
   const navItems = [
     { href: '/', label: 'HOME', icon: '⚡' },
     { href: '/shop', label: 'SHOP', icon: '🛒' },
+    { href: '/dj', label: 'DJ', icon: '🎵' },
     { href: '/concept', label: 'CONCEPT', icon: '🧠' },
     { href: '/manifesto', label: 'MANIFESTO', icon: '📜' },
     { href: '/npos', label: 'NPOS_OS', icon: '⚙️' },
