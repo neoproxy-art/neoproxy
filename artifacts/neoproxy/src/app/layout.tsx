@@ -32,6 +32,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${mono.variable} ${inter.variable}`}>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#00d4ff" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="NeoProxy" />
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+      </head>
       <body className={mono.className}>
         <GlobalNav />
         <main className="main-content">

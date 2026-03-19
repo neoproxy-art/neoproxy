@@ -9,6 +9,7 @@
     "db:seed": "node prisma/seed.js"
   },
   "dependencies": {
+    "@babylonjs/serializers": "^8.55.3",
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
     "@react-three/drei": "^9.88.17",
