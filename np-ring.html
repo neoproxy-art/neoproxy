@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">NEOPROXY // OBJETO</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#020205;--surface:#06060e;--border:#0d0d1e;
+  --purple:#b400ff;--green:#00ff9d;--amber:#ffb800;--red:#ff2b2b;
+  --text:#b0b0cc;--muted:#2a2a44;--dim:#0a0a18;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;overflow-x:hidden}
+
+/* NOISE TEXTURE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.6}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(2,2,5,.9);backdrop-filter:blur(12px)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.2em;color:var(--purple);opacity:.8}
+.logo a{color:inherit;text-decoration:none}
+.nav-links{display:flex;gap:24px}
+.nav-link{font-size:8px;letter-spacing:.2em;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:var(--purple)}
+
+/* HERO LAYOUT */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;z-index:1}
+
+/* 3D VIEWER */
+#viewer-col{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border);background:var(--dim)}
+#viewer-canvas{display:block;width:100%;height:100%}
+#viewer-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:7px;letter-spacing:.2em;color:var(--muted);pointer-events:none}
+
+/* INFO COL */
+#info-col{padding:100px 48px 60px;display:flex;flex-direction:column;gap:0}
+
+/* CERTIFICATION BADGE */
+#cert-block{margin-bottom:40px;opacity:0;animation:fadeUp .6s .1s forwards}
+.cert-line{font-size:8px;letter-spacing:.3em;color:var(--muted);margin-bottom:8px}
+.cert-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid;padding:8px 16px}
+.cert-dot{width:8px;height:8px;border-radius:50%}
+.cert-text{font-size:10px;letter-spacing:.25em;font-weight:500}
+
+/* OBJECT ID */
+#id-block{margin-bottom:48px;opacity:0;animation:fadeUp .6s .2s forwards}
+.obj-series{font-size:9px;letter-spacing:.3em;color:var(--muted);margin-bottom:6px}
+.obj-id{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:.9;letter-spacing:.05em;color:var(--text)}
+.obj-id span{color:var(--purple);text-shadow:0 0 30px rgba(180,0,255,.4)}
+.obj-score{margin-top:10px;font-size:9px;letter-spacing:.15em;color:var(--muted)}
+.obj-score strong{color:var(--purple)}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:32px 0}
+
+/* SPEC TABLE */
+#specs-block{margin-bottom:32px;opacity:0;animation:fadeUp .6s .3s forwards}
+.spec-title{font-size:8px;letter-spacing:.3em;color:var(--muted);margin-bottom:16px}
+.spec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.spec-key{font-size:8px;letter-spacing:.15em;color:var(--muted)}
+.spec-val{font-size:9px;letter-spacing:.1em;color:var(--text)}
+.spec-val.highlight{color:var(--green)}
+
+/* MODIFIER GRID */
+#mods-block{margin-bottom:40px;opacity:0;animation:fadeUp .6s .4s forwards}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mod-item{border:1px solid var(--border);padding:10px 14px;transition:border-color .2s}
+.mod-item.active{border-color:rgba(180,0,255,.3)}
+.mod-name{font-size:7px;letter-spacing:.2em;color:var(--muted);margin-bottom:4px}
+.mod-val{font-size:9px;color:var(--text)}
+.mod-item.active .mod-name{color:var(--purple)}
+.mod-item.active .mod-val{color:var(--text)}
+.mod-off{color:var(--muted)!important;font-style:italic}
+
+/* ACTIONS */
+#actions-block{opacity:0;animation:fadeUp .6s .5s forwards}
+.btn{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;padding:12px 24px;border:1px solid;background:transparent;cursor:pointer;transition:all .2s;text-transform:uppercase;width:100%;margin-bottom:10px;display:block;text-align:center;text-decoration:none}
+.btn-p{border-color:var(--purple);color:var(--purple)}.btn-p:hover{background:rgba(180,0,255,.1);box-shadow:0 0 20px rgba(180,0,255,.2)}
+.btn-g{border-color:var(--green);color:var(--green)}.btn-g:hover{background:rgba(0,255,157,.06)}
+.btn-m{border-color:var(--border);color:var(--muted)}.btn-m:hover{border-color:var(--muted);color:var(--text)}
+
+/* LORE SECTION */
+#lore{padding:80px 48px;border-top:1px solid var(--border);position:relative;z-index:1}
+.lore-eyebrow{font-size:8px;letter-spacing:.3em;color:var(--muted);margin-bottom:20px}
+.lore-text{font-size:12px;color:#3a3a5a;line-height:2;max-width:480px;font-style:italic}
+.lore-text strong{color:#5a5a7a;font-style:normal}
+
+/* TOAST */
+#toast{position:fixed;bottom:20px;right:20px;background:var(--dim);border:1px solid var(--purple);color:var(--purple);font-size:8px;letter-spacing:.2em;padding:10px 20px;opacity:0;transition:all .3s;pointer-events:none;z-index:999;box-shadow:0 0 20px rgba(180,0,255,.2)}
+#toast.show{opacity:1}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* 404 STATE */
+#not-found{display:none;min-height:100vh;align-items:center;justify-content:center;flex-direction:column;gap:20px;text-align:center;position:relative;z-index:1}
+#not-found .big{font-family:'Bebas Neue',sans-serif;font-size:120px;color:var(--border);line-height:1}
+#not-found p{font-size:10px;letter-spacing:.2em;color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  #hero{grid-template-columns:1fr}
+  #viewer-col{height:50vh;position:relative}
+  #info-col{padding:40px 24px}
+  .obj-id{font-size:52px}
+  #lore{padding:40px 24px}
+}
+
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-thumb{background:var(--purple)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><a href="index.html">NEOPROXY</a></div>
+  <nav class="nav-links">
+    <a href="np-drop01-curator.html" class="nav-link">CURATOR</a>
+    <a href="neoproxy-ring-generator.html" class="nav-link">GENERATOR</a>
+    <a href="#" class="nav-link" onclick="shareRing();return false">SHARE</a>
+  </nav>
+</header>
+
+<div id="not-found">
+  <div class="big">404</div>
+  <p>OBJETO NO ENCONTRADO — INGRESA UN SEED VÁLIDO EN LA URL</p>
+  <p style="color:var(--border);margin-top:8px">ejemplo: ring.html?seed=48291</p>
+</div>
+
+<div id="hero">
+  <!-- 3D VIEWER -->
+  <div id="viewer-col">
+    <canvas id="viewer-canvas"></canvas>
+    <div id="viewer-hint">DRAG PARA ROTAR · SCROLL PARA ZOOM</div>
+  </div>
+
+  <!-- INFO -->
+  <div id="info-col">
+
+    <div id="cert-block">
+      <div class="cert-line">ESTADO DE FABRICACIÓN</div>
+      <div class="cert-badge" id="cert-badge">
+        <div class="cert-dot" id="cert-dot"></div>
+        <span class="cert-text" id="cert-text">—</span>
+      </div>
+    </div>
+
+    <div id="id-block">
+      <div class="obj-series">NEOPROXY DROP 01 — INSTANCIA</div>
+      <div class="obj-id">NP–<span id="obj-seed">?????</span></div>
+      <div class="obj-score">SCORE ESTÉTICO: <strong id="obj-score">—</strong> / 100</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div id="specs-block">
+      <div class="spec-title">ESPECIFICACIONES</div>
+      <div id="spec-rows"></div>
+    </div>
+
+    <div id="mods-block">
+      <div class="spec-title">MODIFICADORES</div>
+      <div class="mod-grid" id="mod-grid"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div id="actions-block">
+      <button class="btn btn-p" onclick="openInGenerator()">↗ ABRIR EN GENERATOR</button>
+      <button class="btn btn-g" id="btn-stl" onclick="exportSTL()">↓ EXPORTAR STL</button>
+      <button class="btn btn-m" onclick="shareRing()">⎘ COPIAR LINK</button>
+    </div>
+
+  </div>
+</div>
+
+<div id="lore">
+  <div class="lore-eyebrow">// LORE DE INSTANCIA</div>
+  <div class="lore-text" id="lore-text">Cargando...</div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─── SEEDED RNG ──────────────────────────────────────────────────────────────
+function mkRand(seed){
+  let s=seed>>>0
+  return ()=>{ s=(Math.imul(1664525,s)+1013904223)>>>0; return s/0xffffffff }
+}
+
+// ─── PARAMS FROM SEED ───────────────────────────────────────────────────────
+function paramsFromSeed(seed){
+  const r=mkRand(seed)
+  return {
+    diam: 16 + r()*4,
+    width: 5 + r()*6,
+    thick: 1.4 + r()*2,
+    spikes: r() > 0.3,
+    sc: Math.round(6 + r()*20),
+    sh: 0.3 + r()*2.8,
+    waves: r() > 0.25,
+    wf: Math.round(1 + r()*8),
+    wa: 0.1 + r()*1.2,
+    voro: r() > 0.35,
+    vi: r()*1.2,
+    cuts: r() > 0.4,
+    cn: Math.round(1 + r()*14),
+    seed
+  }
+}
+
+// ─── SAFETY ──────────────────────────────────────────────────────────────────
+const SAFETY_RULES = [
+  { level:'FAIL', check: p => p.thick < 1.2, msg:'Pared crítica (<1.2mm)' },
+  { level:'RISK', check: p => p.thick < 1.5, msg:'Pared delgada (1.2–1.5mm)' },
+  { level:'RISK', check: p => p.spikes && p.sh > 2.5, msg:'Spikes altos (>2.5mm)' },
+  { level:'RISK', check: p => p.spikes && p.sh > 1.8 && p.sc > 20, msg:'Spikes densos' },
+  { level:'RISK', check: p => p.voro && p.vi > 1.0, msg:'Voronoi intenso' },
+  { level:'RISK', check: p => p.cuts && p.cn > 10, msg:'Cortes excesivos' },
+  { level:'RISK', check: p => p.cuts && p.cn > 6 && p.thick < 1.8, msg:'Cortes+pared fina' },
+]
+function checkSafety(p){
+  let status='SAFE'; const issues=[]
+  for(const r of SAFETY_RULES){
+    if(r.check(p)){ issues.push(r.msg); if(r.level==='FAIL') status='FAIL'; else if(status!=='FAIL') status='RISK' }
+  }
+  return {status,issues}
+}
+
+// ─── AESTHETIC SCORE ────────────────────────────────────────────────────────
+function scoreAesthetic(p){
+  let score=50
+  const mods=[p.spikes,p.waves,p.voro,p.cuts].filter(Boolean).length
+  score+=mods*8
+  const ratio=p.width/p.diam
+  if(ratio>.3&&ratio<.6) score+=10; if(ratio<.2||ratio>.7) score-=8
+  if(p.spikes&&p.sc>=8&&p.sc<=18&&p.sh>=.8&&p.sh<=2) score+=12
+  if(p.waves&&p.wf>=2&&p.wf<=6) score+=8
+  if(p.voro&&p.vi>.2&&p.vi<.8) score+=10
+  if(p.cuts&&p.cn>=3&&p.cn<=8) score+=8
+  const r=mkRand(p.seed+1337); score+=(r()-.5)*5
+  return Math.max(0,Math.min(100,Math.round(score)))
+}
+
+// ─── LORE GENERATOR ─────────────────────────────────────────────────────────
+function generateLore(seed, p, safety){
+  const r = mkRand(seed + 7777)
+  const origins = ['extractada de ruido sísmico','sintetizada desde datos de red','derivada de una señal interrumpida','generada en un loop infinito roto','emergida de una colisión de parámetros']
+  const materials = ['resina ABS-Like negra','polímero fotocurable clase-B','material de archivo grado industrial']
+  const statuses = {
+    SAFE: 'certificada para distribución física',
+    RISK: 'marcada como variante inestable — existencia no garantizada',
+    FAIL: 'clasificada como instancia corrupta — no debería existir'
+  }
+  const origin = origins[Math.floor(r()*origins.length)]
+  const mat = materials[Math.floor(r()*materials.length)]
+  const mods = [p.spikes&&'deformación de picos',p.waves&&'modulación ondulatoria',p.voro&&'textura voronoi',p.cuts&&'incisiones glitch'].filter(Boolean)
+  const modStr = mods.length ? `Lleva inscrita <strong>${mods.join(', ')}</strong>. ` : ''
+  return `Instancia <strong>NP-${String(seed).padStart(5,'0')}</strong>, ${origin}. ${modStr}Materializable en <strong>${mat}</strong>. Estado: <strong>${statuses[safety.status]}</strong>.`
+}
+
+// ─── 3D GEOMETRY (same as generator) ─────────────────────────────────────────
+function voronoi(a,y,pts){
+  let mn=1e9
+  for(const p of pts){ const da=a-p[0],dy=y-p[1]; mn=Math.min(mn,Math.sqrt(da*da+dy*dy)) }
+  return mn
+}
+const SEG=96,RINGS=48
+function buildGeo(P){
+  const rand=mkRand(P.seed); const R=P.diam/2,T=P.thick,W=P.width,SC=0.1
+  const vpts=[]; for(let i=0;i<16;i++) vpts.push([rand()*Math.PI*2,(rand()-.5)*W])
+  const cuts=[]; for(let i=0;i<P.cn;i++) cuts.push({a:rand()*Math.PI*2,y:(rand()-.5)*W,aw:.08+rand()*.25,yh:.4+rand()*W*.35,d:(.4+rand()*1.2)*T})
+  const pos=[],idx=[],stride=SEG+1
+  for(let outer=1;outer>=0;outer--){
+    const off=(outer?0:1)*(RINGS+1)*stride
+    for(let j=0;j<=RINGS;j++){
+      const yv=((j/RINGS)-.5)*W*SC
+      for(let i=0;i<=SEG;i++){
+        const angle=i/SEG*Math.PI*2; let r=outer?(R+T)*SC:R*SC
+        if(outer){
+          if(P.spikes){const sp=Math.max(0,Math.sin(angle*P.sc));const ye=Math.pow(Math.cos((j/RINGS-.5)*Math.PI),2);r+=Math.pow(sp,3)*P.sh*SC*ye*(.7+rand()*.3)}
+          if(P.waves){r+=Math.sin(angle*P.wf)*P.wa*SC;r+=Math.sin((j/RINGS)*Math.PI*4+angle*1.5)*P.wa*.3*SC}
+          if(P.voro){const vn=Math.min(voronoi(angle,yv/SC,vpts)/1.5,1);r+=(.5-vn)*P.vi*SC}
+          if(P.cuts){for(const c of cuts){const ad=Math.abs(((angle-c.a+Math.PI*3)%(Math.PI*2))-Math.PI);const yd=Math.abs(yv/SC-c.y);if(ad<c.aw&&yd<c.yh) r+=c.d*SC*(1-ad/c.aw)*(1-yd/c.yh)*.5}}
+        }
+        pos.push(Math.cos(angle)*r,yv,Math.sin(angle)*r)
+      }
+    }
+  }
+  const innerOff=(RINGS+1)*stride
+  for(let j=0;j<RINGS;j++) for(let i=0;i<SEG;i++){const a=j*stride+i,b=a+1,c=a+stride,d=c+1;idx.push(a,b,d,a,d,c)}
+  for(let j=0;j<RINGS;j++) for(let i=0;i<SEG;i++){const a=innerOff+j*stride+i,b=a+1,c=a+stride,d=c+1;idx.push(a,d,b,a,c,d)}
+  for(let i=0;i<SEG;i++){idx.push(i,innerOff+i,i+1,i+1,innerOff+i,innerOff+i+1)}
+  const bot=RINGS*stride; for(let i=0;i<SEG;i++){const o=bot+i,o2=bot+i+1,inn=innerOff+bot+i,inn2=innerOff+bot+i+1;idx.push(o,o2,inn,o2,inn2,inn)}
+  const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3)); geo.setIndex(idx); geo.computeVertexNormals()
+  return geo
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+const params = new URLSearchParams(window.location.search)
+const seedStr = params.get('seed')
+const seed = parseInt(seedStr)
+
+if(!seedStr || isNaN(seed) || seed < 0 || seed > 99999){
+  document.getElementById('hero').style.display = 'none'
+  document.getElementById('lore').style.display = 'none'
+  document.getElementById('not-found').style.display = 'flex'
+} else {
+  initPage(seed)
+}
+
+function initPage(seed){
+  const p = paramsFromSeed(seed)
+  const safety = checkSafety(p)
+  const score = scoreAesthetic(p)
+
+  // Page title
+  document.getElementById('page-title').textContent = `NP-${String(seed).padStart(5,'0')} // NEOPROXY`
+  document.getElementById('obj-seed').textContent = String(seed).padStart(5,'0')
+  document.getElementById('obj-score').textContent = score
+
+  // Cert badge
+  const certColors = { SAFE:'#00ff9d', RISK:'#ffb800', FAIL:'#ff2b2b' }
+  const certLabels = { SAFE:'NP CERTIFIED — APTO PARA FABRICACIÓN', RISK:'NP UNSTABLE — VERIFICAR EN SLICER', FAIL:'NP CORRUPTED — NO IMPRIMIR' }
+  const col = certColors[safety.status]
+  document.getElementById('cert-dot').style.background = col
+  document.getElementById('cert-dot').style.boxShadow = `0 0 8px ${col}`
+  document.getElementById('cert-text').textContent = certLabels[safety.status]
+  document.getElementById('cert-text').style.color = col
+  document.getElementById('cert-badge').style.borderColor = col + '44'
+
+  // Specs
+  const specs = [
+    ['DIÁMETRO INTERIOR', p.diam.toFixed(1)+' mm', true],
+    ['ANCHO', p.width.toFixed(1)+' mm', true],
+    ['GROSOR PARED', p.thick.toFixed(1)+' mm', p.thick >= 1.5],
+    ['ESTADO SAFETY', safety.status, safety.status === 'SAFE'],
+    ['SEED', String(seed).padStart(5,'0'), false],
+  ]
+  document.getElementById('spec-rows').innerHTML = specs.map(([k,v,hl])=>
+    `<div class="spec-row"><span class="spec-key">${k}</span><span class="spec-val ${hl?'highlight':''}">${v}</span></div>`
+  ).join('')
+
+  // Modifiers
+  const mods = [
+    ['SPIKES', p.spikes, p.spikes ? `${p.sc} picos · ${p.sh.toFixed(1)}mm` : null],
+    ['WAVES', p.waves, p.waves ? `f${p.wf} · ${p.wa.toFixed(2)}mm amp` : null],
+    ['VORONOI', p.voro, p.voro ? `${p.vi.toFixed(2)}mm intensidad` : null],
+    ['CORTES', p.cuts, p.cuts ? `${p.cn} incisiones` : null],
+  ]
+  document.getElementById('mod-grid').innerHTML = mods.map(([name,active,val])=>
+    `<div class="mod-item ${active?'active':''}">
+      <div class="mod-name">${name}</div>
+      <div class="mod-val ${active?'':'mod-off'}">${active ? val : 'inactivo'}</div>
+    </div>`
+  ).join('')
+
+  // Lore
+  document.getElementById('lore-text').innerHTML = generateLore(seed, p, safety)
+
+  // STL export state
+  if(safety.status === 'FAIL'){
+    document.getElementById('btn-stl').textContent = '✕ EXPORT BLOQUEADO'
+    document.getElementById('btn-stl').style.borderColor = '#ff2b2b33'
+    document.getElementById('btn-stl').style.color = '#ff2b2b44'
+    document.getElementById('btn-stl').disabled = true
+  }
+
+  // Init 3D
+  init3D(p, safety)
+}
+
+function openInGenerator(){
+  const seed = parseInt(document.getElementById('obj-seed').textContent)
+  window.open(`neoproxy-ring-generator.html?seed=${seed}`, '_blank')
+}
+
+function shareRing(){
+  navigator.clipboard.writeText(window.location.href)
+    .then(()=>showToast('LINK COPIADO'))
+    .catch(()=>prompt('Copia este link:', window.location.href))
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show')
+  setTimeout(()=>t.classList.remove('show'),2000)
+}
+
+// ─── 3D VIEWER ───────────────────────────────────────────────────────────────
+function init3D(P, safety){
+  const canvas = document.getElementById('viewer-canvas')
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true})
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2))
+  renderer.setClearColor(0x030308)
+
+  const scene = new THREE.Scene()
+  const camera = new THREE.PerspectiveCamera(45,1,.01,100)
+  camera.position.set(0,1.5,5)
+  camera.lookAt(0,0,0)
+
+  scene.add(new THREE.AmbientLight(0x220033,.8))
+  const d1=new THREE.DirectionalLight(0xb400ff,2.5); d1.position.set(-2,3,2); scene.add(d1)
+  const d2=new THREE.DirectionalLight(0x00ff9d,1); d2.position.set(2,-1,-2); scene.add(d2)
+  const d3=new THREE.PointLight(0x00d4ff,1.5,10); d3.position.set(0,4,0); scene.add(d3)
+
+  const safeEmissive = safety.status === 'SAFE' ? 0x1a0040 : safety.status === 'RISK' ? 0x1a0a00 : 0x1a0000
+  const mat = new THREE.MeshStandardMaterial({color:0x0a0015,emissive:safeEmissive,emissiveIntensity:.5,metalness:.05,roughness:.2,side:THREE.DoubleSide})
+
+  const geo = buildGeo(P)
+  const mesh = new THREE.Mesh(geo, mat)
+  scene.add(mesh)
+
+  function resize(){
+    const col = canvas.parentElement
+    const W = col.clientWidth, H = col.clientHeight
+    renderer.setSize(W,H,false)
+    camera.aspect=W/H; camera.updateProjectionMatrix()
+  }
+  window.addEventListener('resize',resize); resize()
+
+  let drag=false,ox=0,oy=0,rotX=.25,rotY=0
+  canvas.addEventListener('mousedown',e=>{drag=true;ox=e.clientX;oy=e.clientY})
+  window.addEventListener('mouseup',()=>drag=false)
+  window.addEventListener('mousemove',e=>{if(!drag)return; rotY+=(e.clientX-ox)*.005; rotX+=(e.clientY-oy)*.005; ox=e.clientX;oy=e.clientY})
+  canvas.addEventListener('wheel',e=>{camera.position.multiplyScalar(1+e.deltaY*.001);e.preventDefault()},{passive:false})
+  let t0=null
+  canvas.addEventListener('touchstart',e=>t0=e.touches[0])
+  canvas.addEventListener('touchmove',e=>{if(!t0)return;const t=e.touches[0];rotY+=(t.clientX-t0.clientX)*.005;rotX+=(t.clientY-t0.clientY)*.005;t0=t;e.preventDefault()},{passive:false})
+
+  ;(function loop(){
+    requestAnimationFrame(loop)
+    rotY+=.004; mesh.rotation.x=rotX; mesh.rotation.y=rotY
+    renderer.render(scene,camera)
+  })()
+}
+
+// ─── STL EXPORT ──────────────────────────────────────────────────────────────
+function exportSTL(){
+  const seed = parseInt(document.getElementById('obj-seed').textContent)
+  const p = paramsFromSeed(seed)
+  const safety = checkSafety(p)
+  if(safety.status==='FAIL') return
+
+  const g=buildGeo(p); const pos=g.attributes.position.array; const idx=g.index.array; const MM=10
+  let stl='solid neoproxy_ring\n'
+  for(let i=0;i<idx.length;i+=3){
+    const i0=idx[i]*3,i1=idx[i+1]*3,i2=idx[i+2]*3
+    const ax=pos[i0]*MM,ay=pos[i0+1]*MM,az=pos[i0+2]*MM
+    const bx=pos[i1]*MM,by=pos[i1+1]*MM,bz=pos[i1+2]*MM
+    const cx=pos[i2]*MM,cy=pos[i2+1]*MM,cz=pos[i2+2]*MM
+    const ux=bx-ax,uy=by-ay,uz=bz-az,vx=cx-ax,vy=cy-ay,vz=cz-az
+    let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx
+    const l=Math.sqrt(nx*nx+ny*ny+nz*nz)||1; nx/=l;ny/=l;nz/=l
+    stl+=`  facet normal ${nx.toFixed(6)} ${ny.toFixed(6)} ${nz.toFixed(6)}\n    outer loop\n`
+    stl+=`      vertex ${ax.toFixed(4)} ${ay.toFixed(4)} ${az.toFixed(4)}\n`
+    stl+=`      vertex ${bx.toFixed(4)} ${by.toFixed(4)} ${bz.toFixed(4)}\n`
+    stl+=`      vertex ${cx.toFixed(4)} ${cy.toFixed(4)} ${cz.toFixed(4)}\n`
+    stl+=`    endloop\n  endfacet\n`
+  }
+  stl+='endsolid neoproxy_ring\n'
+  const blob=new Blob([stl],{type:'text/plain'})
+  const url=URL.createObjectURL(blob)
+  const a=document.createElement('a')
+  const cert = safety.status==='SAFE'?'CERT':'UNSTABLE'
+  a.href=url; a.download=`NP-${String(seed).padStart(5,'0')}_d${p.diam.toFixed(1)}mm_[${cert}].stl`; a.click()
+  URL.revokeObjectURL(url); g.dispose()
+  showToast(safety.status==='SAFE'?'✓ NP CERTIFIED — EXPORT OK':'⚠ NP UNSTABLE — VERIFICA EN SLICER')
+}
+</script>
+</body>
+</html>

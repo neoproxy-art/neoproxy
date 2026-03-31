@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEOPROXY // DROP_01 CURATOR</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#020205;--surface:#07070f;--border:#0f0f1e;
+  --purple:#b400ff;--green:#00ff9d;--amber:#ffb800;--red:#ff2b2b;
+  --text:#ccccdd;--muted:#333355;--dim:#1a1a2e;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh}
+
+/* HEADER */
+header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:100}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.15em;color:var(--purple);text-shadow:0 0 20px rgba(180,0,255,.4)}
+.logo span{color:var(--green)}
+.hright{display:flex;align-items:center;gap:20px}
+.counter{font-size:10px;letter-spacing:.2em;color:var(--muted)}
+.counter strong{color:var(--green)}
+
+/* CONTROLS */
+#controls{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--surface)}
+.btn{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;padding:8px 16px;border:1px solid;background:transparent;cursor:pointer;transition:all .15s;text-transform:uppercase}
+.btn-p{border-color:var(--purple);color:var(--purple)}.btn-p:hover{background:rgba(180,0,255,.1);box-shadow:0 0 12px rgba(180,0,255,.2)}
+.btn-g{border-color:var(--green);color:var(--green)}.btn-g:hover{background:rgba(0,255,157,.08)}
+.btn-a{border-color:var(--amber);color:var(--amber)}.btn-a:hover{background:rgba(255,184,0,.08)}
+.sep{width:1px;height:28px;background:var(--border)}
+.filter-label{font-size:9px;color:var(--muted);letter-spacing:.15em}
+.filter-btn{font-size:8px;letter-spacing:.15em;padding:5px 10px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);transition:all .15s;font-family:'DM Mono',monospace}
+.filter-btn.active-safe{border-color:var(--green);color:var(--green);background:rgba(0,255,157,.06)}
+.filter-btn.active-risk{border-color:var(--amber);color:var(--amber);background:rgba(255,184,0,.06)}
+.filter-btn.active-selected{border-color:var(--purple);color:var(--purple);background:rgba(180,0,255,.06)}
+.filter-btn:not(.active-safe):not(.active-risk):not(.active-selected):hover{border-color:var(--muted);color:var(--text)}
+
+/* PROGRESS */
+#progress-bar{height:2px;background:var(--dim);transition:width .3s}
+#progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--green));width:0%;transition:width .05s}
+
+/* GRID */
+#grid{padding:20px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+
+/* CARD */
+.card{border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.card:hover{border-color:rgba(180,0,255,.3);transform:translateY(-2px)}
+.card.selected{border-color:var(--purple);box-shadow:0 0 16px rgba(180,0,255,.2)}
+.card.selected::before{content:'';position:absolute;inset:0;background:rgba(180,0,255,.04);pointer-events:none}
+
+.card-canvas-wrap{height:140px;background:#030308;position:relative}
+.card canvas{width:100%;height:100%;display:block}
+
+.card-body{padding:10px 12px}
+.card-id{font-size:10px;letter-spacing:.2em;color:var(--purple);font-weight:500;margin-bottom:4px}
+.card-score{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.score-bar{flex:1;height:2px;background:var(--dim)}
+.score-fill{height:100%;transition:width .4s}
+.score-val{font-size:8px;letter-spacing:.1em;min-width:28px;text-align:right}
+
+.card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:7px;letter-spacing:.1em;padding:2px 5px;border:1px solid}
+.tag-safe{border-color:rgba(0,255,157,.3);color:rgba(0,255,157,.7)}
+.tag-risk{border-color:rgba(255,184,0,.3);color:rgba(255,184,0,.7)}
+.tag-dim{border-color:var(--border);color:var(--muted)}
+
+.card-sel-badge{position:absolute;top:8px;right:8px;background:var(--purple);color:#fff;font-size:7px;letter-spacing:.15em;padding:3px 6px;opacity:0;transition:opacity .2s}
+.card.selected .card-sel-badge{opacity:1}
+
+/* SELECTED PANEL */
+#drop-panel{position:fixed;bottom:0;left:0;right:0;background:#050510;border-top:1px solid var(--purple);padding:14px 24px;display:flex;align-items:center;gap:16px;transform:translateY(100%);transition:transform .3s;z-index:200}
+#drop-panel.visible{transform:translateY(0)}
+.panel-label{font-size:9px;letter-spacing:.2em;color:var(--muted)}
+#selected-ids{display:flex;gap:8px;flex:1;flex-wrap:wrap}
+.sel-id{font-size:9px;letter-spacing:.15em;color:var(--purple);border:1px solid rgba(180,0,255,.3);padding:3px 8px}
+.panel-count{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--purple);line-height:1;margin-right:8px}
+.panel-count span{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.1em}
+
+/* SCORING LEGEND */
+#legend{padding:10px 24px;border-bottom:1px solid var(--border);display:flex;gap:20px;background:#030308}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--muted);letter-spacing:.1em}
+.leg-dot{width:6px;height:6px;border-radius:50%}
+
+/* EMPTY */
+#empty{display:none;padding:60px 24px;text-align:center;color:var(--muted);font-size:10px;letter-spacing:.2em}
+
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-thumb{background:var(--purple)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NEOPROXY <span>// DROP_01</span> CURATOR</div>
+  <div class="hright">
+    <div class="counter">ESCANEADOS <strong id="cnt-scanned">0</strong> / 500</div>
+    <div class="counter">SAFE <strong id="cnt-safe" style="color:var(--green)">0</strong></div>
+    <div class="counter">SELECCIONADOS <strong id="cnt-sel" style="color:var(--purple)">0</strong>/10</div>
+  </div>
+</header>
+
+<div id="controls">
+  <button class="btn btn-p" id="btn-run" onclick="runCuration()">▶ GENERAR 500 SEEDS</button>
+  <button class="btn btn-g" id="btn-export" onclick="exportDrop()" disabled>↓ EXPORTAR DROP 01</button>
+  <div class="sep"></div>
+  <span class="filter-label">FILTRO:</span>
+  <button class="filter-btn active-safe" id="f-safe" onclick="toggleFilter('safe')">🟢 SAFE</button>
+  <button class="filter-btn active-risk" id="f-risk" onclick="toggleFilter('risk')">🟡 RISK</button>
+  <button class="filter-btn" id="f-selected" onclick="toggleFilter('selected')">◆ SELECCIONADOS</button>
+</div>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<div id="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>CERTIFIED</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div>UNSTABLE</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#6600cc"></div>SCORE ESTÉTICO</div>
+  <div class="leg-item" style="margin-left:auto;color:#222244">Haz click en una carta para seleccionarla para el DROP 01</div>
+</div>
+
+<div id="grid"></div>
+<div id="empty">No hay resultados con los filtros actuales.</div>
+
+<div id="drop-panel">
+  <div>
+    <div class="panel-count" id="panel-count">0 <span>/ 10</span></div>
+    <div class="panel-label">SELECCIONADOS</div>
+  </div>
+  <div id="selected-ids"></div>
+  <button class="btn btn-p" onclick="exportDrop()">↓ EXPORTAR DROP 01</button>
+  <button class="btn" style="border-color:var(--border);color:var(--muted)" onclick="clearSelection()">✕ LIMPIAR</button>
+</div>
+
+<script>
+// ─── SAFETY SYSTEM (copied from generator) ────────────────────────────────
+const SAFETY_RULES = [
+  { level:'FAIL',  check: p => p.thick < 1.2, msg:'Pared crítica' },
+  { level:'RISK',  check: p => p.thick < 1.5, msg:'Pared delgada' },
+  { level:'RISK',  check: p => p.spikes && p.sh > 2.5, msg:'Spikes altos' },
+  { level:'RISK',  check: p => p.spikes && p.sh > 1.8 && p.sc > 20, msg:'Spikes densos' },
+  { level:'RISK',  check: p => p.voro && p.vi > 1.0, msg:'Voronoi intenso' },
+  { level:'RISK',  check: p => p.cuts && p.cn > 10, msg:'Cortes excesivos' },
+  { level:'RISK',  check: p => p.cuts && p.cn > 6 && p.thick < 1.8, msg:'Cortes+pared fina' },
+]
+function checkSafety(p){
+  let status='SAFE'; const issues=[]
+  for(const r of SAFETY_RULES){
+    if(r.check(p)){
+      issues.push(r.msg)
+      if(r.level==='FAIL') status='FAIL'
+      else if(status!=='FAIL') status='RISK'
+    }
+  }
+  return {status,issues}
+}
+
+// ─── SEEDED RNG ─────────────────────────────────────────────────────────────
+function mkRand(seed){
+  let s=seed>>>0
+  return ()=>{ s=(Math.imul(1664525,s)+1013904223)>>>0; return s/0xffffffff }
+}
+
+// ─── PARAMS FROM SEED (default params with slight variation) ──────────────
+function paramsFromSeed(seed){
+  const r=mkRand(seed)
+  // Each seed generates its own parameter set within reasonable ranges
+  return {
+    diam: 16 + r()*4,           // 16–20mm
+    width: 5 + r()*6,           // 5–11mm
+    thick: 1.4 + r()*2,        // 1.4–3.4mm  (biased toward safe)
+    spikes: r() > 0.3,
+    sc: Math.round(6 + r()*20),
+    sh: 0.3 + r()*2.8,
+    waves: r() > 0.25,
+    wf: Math.round(1 + r()*8),
+    wa: 0.1 + r()*1.2,
+    voro: r() > 0.35,
+    vi: r()*1.2,
+    cuts: r() > 0.4,
+    cn: Math.round(1 + r()*14),
+    seed
+  }
+}
+
+// ─── AESTHETIC SCORING ───────────────────────────────────────────────────────
+// Score 0-100: higher = more visually interesting + balanced
+function scoreAesthetic(p){
+  let score = 50
+  const r = mkRand(p.seed + 1337)
+
+  // Complexity bonus: more active modifiers = more interesting
+  const mods = [p.spikes, p.waves, p.voro, p.cuts].filter(Boolean).length
+  score += mods * 8
+
+  // Width/proportion balance
+  const ratio = p.width / p.diam
+  if(ratio > 0.3 && ratio < 0.6) score += 10  // good proportion
+  if(ratio < 0.2 || ratio > 0.7) score -= 8   // too narrow or too wide
+
+  // Spike balance
+  if(p.spikes){
+    if(p.sc >= 8 && p.sc <= 18 && p.sh >= 0.8 && p.sh <= 2.0) score += 12  // ideal spikes
+    if(p.sc > 20 || p.sh > 2.5) score -= 6  // too extreme
+  }
+
+  // Wave presence adds organic feel
+  if(p.waves && p.wf >= 2 && p.wf <= 6) score += 8
+
+  // Voronoi adds character but not too much
+  if(p.voro && p.vi > 0.2 && p.vi < 0.8) score += 10
+  if(p.voro && p.vi > 1.1) score -= 5
+
+  // Cuts add drama
+  if(p.cuts && p.cn >= 3 && p.cn <= 8) score += 8
+
+  // Penalize combination overload
+  if(mods === 4 && p.vi > 0.7 && p.cn > 7) score -= 10
+
+  // Small entropy factor (prevents ties)
+  score += (r() - 0.5) * 5
+
+  return Math.max(0, Math.min(100, Math.round(score)))
+}
+
+// ─── MINI 3D PREVIEW (simplified, fast) ──────────────────────────────────
+// Uses basic canvas 2D ring silhouette + parameter visualization
+function drawPreview(canvas, p, safety){
+  const ctx = canvas.getContext('2d')
+  const W = canvas.width, H = canvas.height
+  ctx.clearRect(0,0,W,H)
+
+  const cx = W/2, cy = H/2
+  const R = Math.min(W,H) * 0.32
+  const innerR = R * (p.diam / (p.diam + p.thick*2))
+  const SEG = 120
+
+  // Background gradient
+  const bg = ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.4)
+  bg.addColorStop(0,'#0a0015')
+  bg.addColorStop(1,'#020205')
+  ctx.fillStyle = bg
+  ctx.fillRect(0,0,W,H)
+
+  const rand = mkRand(p.seed)
+  const vpts = []
+  for(let i=0;i<16;i++) vpts.push([rand()*Math.PI*2, (rand()-.5)*p.width])
+
+  // Build outer profile
+  const outerPts = []
+  for(let i=0;i<=SEG;i++){
+    const angle = i/SEG * Math.PI*2
+    let r = R
+    if(p.spikes){
+      const sp = Math.max(0,Math.sin(angle*p.sc))
+      r += Math.pow(sp,3)*p.sh*(R/p.diam)*6
+    }
+    if(p.waves) r += Math.sin(angle*p.wf)*p.wa*(R/p.diam)*4
+    if(p.voro){
+      let mn=1e9
+      for(const pt of vpts){
+        const da=angle-pt[0]
+        mn=Math.min(mn,Math.sqrt(da*da))
+      }
+      r += (.5-Math.min(mn/1.5,1))*p.vi*(R/p.diam)*3
+    }
+    if(p.cuts){
+      const cuts = []
+      const cr = mkRand(p.seed+999)
+      for(let k=0;k<p.cn;k++) cuts.push({a:cr()*Math.PI*2, aw:.1+cr()*.2})
+      for(const c of cuts){
+        const ad = Math.abs(((angle-c.a+Math.PI*3)%(Math.PI*2))-Math.PI)
+        if(ad < c.aw) r += (R*0.04)*(1-ad/c.aw)*.6
+      }
+    }
+    outerPts.push([cx + Math.cos(angle)*r, cy + Math.sin(angle)*r])
+  }
+
+  // Draw outer ring with glow
+  const safeColor = safety.status === 'SAFE' ? '#b400ff' : safety.status === 'RISK' ? '#ffb800' : '#ff2b2b'
+  const glowColor = safety.status === 'SAFE' ? 'rgba(180,0,255,' : safety.status === 'RISK' ? 'rgba(255,184,0,' : 'rgba(255,43,43,'
+
+  ctx.shadowBlur = 12
+  ctx.shadowColor = glowColor + '0.6)'
+  ctx.beginPath()
+  outerPts.forEach((pt,i) => i===0 ? ctx.moveTo(pt[0],pt[1]) : ctx.lineTo(pt[0],pt[1]))
+  ctx.closePath()
+  ctx.fillStyle = '#0a0015'
+  ctx.fill()
+  ctx.strokeStyle = safeColor
+  ctx.lineWidth = 1
+  ctx.stroke()
+  ctx.shadowBlur = 0
+
+  // Inner hole
+  ctx.beginPath()
+  ctx.arc(cx,cy,innerR,0,Math.PI*2)
+  ctx.fillStyle = '#020205'
+  ctx.fill()
+  ctx.strokeStyle = glowColor + '0.4)'
+  ctx.lineWidth = .5
+  ctx.stroke()
+
+  // Width indicator (subtle lines suggesting depth)
+  ctx.globalAlpha = 0.15
+  ctx.strokeStyle = safeColor
+  ctx.lineWidth = .5
+  for(let i=0;i<3;i++){
+    const frac = .3+i*.2
+    ctx.beginPath()
+    ctx.arc(cx,cy,innerR + (R*0.8-innerR)*frac, 0, Math.PI*2)
+    ctx.stroke()
+  }
+  ctx.globalAlpha = 1
+}
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+let allResults = []
+let selected = new Set()
+let filters = { safe: true, risk: true, selected: false }
+const MAX_SEL = 10
+
+// ─── CURATION RUN ───────────────────────────────────────────────────────────
+async function runCuration(){
+  const btn = document.getElementById('btn-run')
+  btn.disabled = true
+  btn.textContent = '⟳ ANALIZANDO...'
+  allResults = []
+  selected.clear()
+  document.getElementById('grid').innerHTML = ''
+  document.getElementById('progress-fill').style.width = '0%'
+
+  const TOTAL = 500
+  const BATCH = 25
+
+  let cntSafe = 0, cntScanned = 0
+
+  for(let batch=0; batch<TOTAL/BATCH; batch++){
+    await new Promise(r=>setTimeout(r,0)) // yield to browser
+    for(let i=0;i<BATCH;i++){
+      const seed = Math.floor(Math.random()*99999)
+      const p = paramsFromSeed(seed)
+      const safety = checkSafety(p)
+      if(safety.status === 'FAIL') continue  // skip FAIL entirely
+
+      const score = scoreAesthetic(p)
+      allResults.push({seed, p, safety, score})
+      if(safety.status === 'SAFE') cntSafe++
+      cntScanned++
+    }
+
+    const pct = ((batch+1)/( TOTAL/BATCH))*100
+    document.getElementById('progress-fill').style.width = pct+'%'
+    document.getElementById('cnt-scanned').textContent = Math.min((batch+1)*BATCH, TOTAL)
+    document.getElementById('cnt-safe').textContent = cntSafe
+  }
+
+  // Sort by score descending
+  allResults.sort((a,b) => b.score - a.score)
+
+  btn.disabled = false
+  btn.textContent = '▶ RE-GENERAR'
+  renderGrid()
+}
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+function renderGrid(){
+  const grid = document.getElementById('grid')
+  const empty = document.getElementById('empty')
+  grid.innerHTML = ''
+
+  const visible = allResults.filter(r => {
+    if(filters.selected && !selected.has(r.seed)) return false
+    if(!filters.selected){
+      if(r.safety.status === 'SAFE' && !filters.safe) return false
+      if(r.safety.status === 'RISK' && !filters.risk) return false
+    }
+    return true
+  })
+
+  empty.style.display = visible.length === 0 ? 'block' : 'none'
+
+  visible.forEach(({seed, p, safety, score}, idx) => {
+    const card = document.createElement('div')
+    card.className = 'card' + (selected.has(seed) ? ' selected' : '')
+    card.dataset.seed = seed
+
+    const isRisk = safety.status === 'RISK'
+    const scoreColor = score >= 75 ? '#b400ff' : score >= 55 ? '#6644aa' : '#333355'
+    const tags = []
+    if(p.spikes) tags.push('spikes')
+    if(p.waves) tags.push('waves')
+    if(p.voro) tags.push('voro')
+    if(p.cuts) tags.push('cuts')
+
+    card.innerHTML = `
+      <div class="card-canvas-wrap">
+        <canvas width="180" height="140"></canvas>
+      </div>
+      <div class="card-body">
+        <div class="card-id">NP-${String(seed).padStart(5,'0')}</div>
+        <div class="card-score">
+          <div class="score-bar"><div class="score-fill" style="width:${score}%;background:${scoreColor}"></div></div>
+          <span class="score-val" style="color:${scoreColor}">${score}</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag ${isRisk?'tag-risk':'tag-safe'}">${safety.status}</span>
+          ${tags.map(t=>`<span class="tag tag-dim">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="card-sel-badge">◆ DROP 01</div>
+    `
+
+    // Draw preview
+    const canvas = card.querySelector('canvas')
+    setTimeout(()=>drawPreview(canvas, p, safety), idx*8)
+
+    card.addEventListener('click', ()=>toggleSelect(seed, card))
+    grid.appendChild(card)
+  })
+}
+
+function toggleSelect(seed, card){
+  if(selected.has(seed)){
+    selected.delete(seed)
+    card.classList.remove('selected')
+  } else {
+    if(selected.size >= MAX_SEL){
+      // Flash the counter
+      const cnt = document.getElementById('cnt-sel')
+      cnt.style.color = '#ff2b2b'
+      setTimeout(()=>cnt.style.color='var(--purple)',600)
+      return
+    }
+    selected.add(seed)
+    card.classList.add('selected')
+  }
+  updateSelectionUI()
+}
+
+function updateSelectionUI(){
+  const n = selected.size
+  document.getElementById('cnt-sel').textContent = n
+  document.getElementById('panel-count').innerHTML = `${n} <span>/ ${MAX_SEL}</span>`
+
+  const ids = document.getElementById('selected-ids')
+  ids.innerHTML = [...selected].map(s=>`<span class="sel-id">NP-${String(s).padStart(5,'0')}</span>`).join('')
+
+  const panel = document.getElementById('drop-panel')
+  panel.classList.toggle('visible', n > 0)
+
+  document.getElementById('btn-export').disabled = n === 0
+}
+
+function clearSelection(){
+  selected.clear()
+  document.querySelectorAll('.card.selected').forEach(c=>c.classList.remove('selected'))
+  updateSelectionUI()
+}
+
+function toggleFilter(f){
+  filters[f] = !filters[f]
+  const btn = document.getElementById('f-'+f)
+  if(filters[f]) btn.classList.add('active-'+f)
+  else btn.classList.remove('active-'+f)
+  renderGrid()
+}
+
+function exportDrop(){
+  if(selected.size === 0) return
+  const drop = [...selected].map((seed,i)=>{
+    const p = paramsFromSeed(seed)
+    const safety = checkSafety(p)
+    const score = scoreAesthetic(p)
+    return {
+      index: i+1,
+      id: `NP-${String(seed).padStart(5,'0')}`,
+      seed,
+      status: safety.status,
+      score,
+      params: {
+        diam: p.diam.toFixed(1)+'mm',
+        width: p.width.toFixed(1)+'mm',
+        thick: p.thick.toFixed(1)+'mm',
+        spikes: p.spikes ? `${p.sc} spikes @ ${p.sh.toFixed(1)}mm` : 'off',
+        waves: p.waves ? `f${p.wf} / ${p.wa.toFixed(2)}mm` : 'off',
+        voronoi: p.voro ? p.vi.toFixed(2)+'mm' : 'off',
+        cuts: p.cuts ? p.cn+' cuts' : 'off',
+      },
+      url: `neoproxy.art?seed=${seed}`
+    }
+  })
+
+  const json = JSON.stringify({
+    drop: 'DROP_01',
+    generated: new Date().toISOString(),
+    count: drop.length,
+    items: drop
+  }, null, 2)
+
+  const blob = new Blob([json], {type:'application/json'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'NP_DROP01_manifest.json'
+  a.click()
+  URL.revokeObjectURL(url)
+}
+</script>
+</body>
+</html>
