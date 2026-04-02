@@ -24,6 +24,17 @@ class KernelMemory:
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                type TEXT NOT NULL,
+                priority TEXT NOT NULL DEFAULT "NORMAL",
+                source TEXT NOT NULL DEFAULT "kernel",
+                payload TEXT NOT NULL DEFAULT "{}",
+                processed INTEGER NOT NULL DEFAULT 0,
+                created_at INTEGER NOT NULL
+            )
+        ''')
         conn.commit()
         conn.close()
 
