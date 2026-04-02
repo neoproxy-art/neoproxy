@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
-import sqlite3 from 'better-sqlite3';
+import Database from 'better-sqlite3';
 import path from 'path';
 
 export async function POST(req: NextRequest) {
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     
     // Using the same sqlite.db created by the Python kernel memory
     const dbPath = path.join(process.cwd(), 'sqlite.db');
-    const db = new sqlite3(dbPath);
+    const db = new Database(dbPath);
     
     // We insert into the 'memory' table
     const stmt = db.prepare(`
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const dbPath = path.join(process.cwd(), 'sqlite.db');
-    const db = new sqlite3(dbPath);
+    const db = new Database(dbPath);
     
     const stmt = db.prepare('SELECT * FROM memory ORDER BY timestamp DESC LIMIT 50');
     const rows = stmt.all();
