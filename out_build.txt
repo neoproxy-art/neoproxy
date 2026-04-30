@@ -1,0 +1,64 @@
+
+> npos-shell@0.1.0 build
+> next build
+
+⚠ Invalid next.config.ts options detected: 
+⚠     Unrecognized key(s) in object: 'serverComponentsExternalPackages' at "experimental"
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+⚠ `experimental.serverComponentsExternalPackages` has been moved to `serverExternalPackages`. Please update your next.config.ts file accordingly.
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /home/darkproxy/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /home/darkproxy/Experiments/package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Experiments (use with caution):
+  ? serverComponentsExternalPackages (invalid experimental key)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Turbopack build encountered 1 warnings:
+./Experiments/auth.ts:6:1
+Ecmascript file had an error
+[0m [90m 4 |[39m [36mimport[39m { users } [36mfrom[39m [32m'@/src/db/schema'[39m
+ [90m 5 |[39m [36mimport[39m { eq } [36mfrom[39m [32m'drizzle-orm'[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { createHash } [36mfrom[39m [32m'crypto'[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m
+ [90m 8 |[39m [36mexport[39m [36mconst[39m { handlers[33m,[39m signIn[33m,[39m signOut[33m,[39m auth } [33m=[39m [33mNextAuth[39m({
+ [90m 9 |[39m   providers[33m:[39m [[0m
+
+A Node.js module is loaded ('crypto' at line 6) which is not supported in the Edge Runtime.
+Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+
+Import traces:
+  App Route:
+    ./Experiments/auth.ts
+    ./Experiments/app/api/auth/[...nextauth]/route.ts
+
+  Edge Middleware:
+    ./Experiments/auth.ts
+    ./Experiments/middleware.ts
+
+
+✓ Compiled successfully in 33.9s
+  Running TypeScript ...
+Failed to compile.
+
+./NeoProxyHero (2).tsx:298:5
+Type error: Type 'StandardMaterial' is not assignable to type 'Nullable<Material>'.
+  Types of property 'pluginManager' are incompatible.
+    Type 'import("/home/darkproxy/Experiments/node_modules/@babylonjs/core/Materials/materialPluginManager").MaterialPluginManager | undefined' is not assignable to type 'BABYLON.MaterialPluginManager | undefined'.
+      Type 'import("/home/darkproxy/Experiments/node_modules/@babylonjs/core/Materials/materialPluginManager").MaterialPluginManager' is not assignable to type 'BABYLON.MaterialPluginManager'.
+        Property '_material' is protected but type 'MaterialPluginManager' is not a class derived from 'MaterialPluginManager'.
+
+[0m [90m 296 |[39m       [33m?[39m (() [33m=>[39m { [36mconst[39m m [33m=[39m [36mnew[39m [33mBABYLON[39m[33m.[39m[33mStandardMaterial[39m([32m'hm'[39m[33m,[39m scene)[33m;[39m m[33m.[39memissiveColor [33m=[39m [36mnew[39m [33mBABYLON[39m[33m.[39m[33mColor3[39m([35m0.4[39m[33m,[39m[35m0.8[39m[33m,[39m[35m1[39m)[33m;[39m m[33m.[39malpha[33m=[39m[35m0.6[39m[33m;[39m [36mreturn[39m m[33m;[39m })()
+ [90m 297 |[39m       [33m:[39m figMat[33m;[39m
+[31m[1m>[22m[39m[90m 298 |[39m     mesh[33m.[39mmaterial [33m=[39m mat[33m;[39m
+ [90m     |[39m     [31m[1m^[22m[39m
+ [90m 299 |[39m
+ [90m 300 |[39m     [36mconst[39m wire [33m=[39m mesh[33m.[39mclone([32m`${name}_w`[39m) [36mas[39m [33mBABYLON[39m[33m.[39m[33mMesh[39m[33m;[39m
+ [90m 301 |[39m     wire[33m.[39mmaterial [33m=[39m wireMat[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

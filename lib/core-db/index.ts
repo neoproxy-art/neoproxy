@@ -4,7 +4,7 @@ import { memory, events } from './schema';
 import { eq } from 'drizzle-orm';
 
 // Initialize SQLite database
-const sqlite = new Database('./sqlite.db');
+const sqlite = new Database('./neoproxy.db');
 export const db = drizzle(sqlite);
 
 // Export schema for use in other modules

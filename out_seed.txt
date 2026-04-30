@@ -1,0 +1,16 @@
+
+/home/darkproxy/Experiments/node_modules/better-sqlite3/lib/methods/wrappers.js:5
+	return this[cppdb].prepare(sql, this, false);
+	                   ^
+SqliteError: no such table: users
+    at Database.prepare (/home/darkproxy/Experiments/node_modules/better-sqlite3/lib/methods/wrappers.js:5:21)
+    at BetterSQLiteSession.prepareQuery (/home/darkproxy/Experiments/node_modules/src/better-sqlite3/session.ts:60:28)
+    at BetterSQLiteSession.prepareOneTimeQuery (/home/darkproxy/Experiments/node_modules/src/sqlite-core/session.ts:250:15)
+    at QueryPromise._prepare (/home/darkproxy/Experiments/node_modules/src/sqlite-core/query-builders/insert.ts:380:78)
+    at QueryPromise.run (/home/darkproxy/Experiments/node_modules/src/sqlite-core/query-builders/insert.ts:398:15)
+    at QueryPromise.execute (/home/darkproxy/Experiments/node_modules/src/sqlite-core/query-builders/insert.ts:414:53)
+    at QueryPromise.then (/home/darkproxy/Experiments/node_modules/src/query-promise.ts:31:15) {
+  code: 'SQLITE_ERROR'
+}
+
+Node.js v20.20.0

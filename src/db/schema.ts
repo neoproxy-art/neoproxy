@@ -19,3 +19,17 @@ export const memoryEvents = sqliteTable("memory_events", {
   eventType: text("event_type").notNull(),
   payload: text("payload", { mode: "json" }).notNull(),
 });
+
+export const users = sqliteTable("users", {
+  id: text("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  role: text("role").notNull().default("operator"),
+  createdAt: integer("created_at").notNull(),
+});
+
+export const sessions = sqliteTable("sessions", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  expiresAt: integer("expires_at").notNull(),
+});

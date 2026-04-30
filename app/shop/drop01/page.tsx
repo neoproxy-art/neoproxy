@@ -2,11 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import * as THREE from 'three'
 
-// ── SEED ENGINE (same RNG as generator) ──────────────────────────────
+// ── SEED ENGINE (same RNG as generator) ──────────────────────────────────────
 function mkRand(seed: number) {
   let s = seed >>> 0
   return () => { s = (Math.imul(1664525, s) + 1013904223) >>> 0; return s / 0xffffffff }
@@ -64,23 +61,31 @@ const ARCHETYPE_LORE: Record<string, string> = {
   CORE:    'Equilibrio entre todos los parámetros',
 }
 
-// ── RING PREVIEW (React Three Fiber 3D) ──────────────────────────────────────────────────
-function RingPreview3D({ seed, size = 160 }: { seed: number; size?: number }) {
-  const meshRef = useRef<THREE.Mesh>(null)
+// ── RING PREVIEW (Canvas 2D) ──────────────────────────────────────────────────
+function RingPreview({ seed, size = 160 }: { seed: number; size?: number }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const mesh = meshRef.current
-    if (!mesh) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
     const p = paramsFromSeed(seed)
+    const W = canvas.width, H = canvas.height
+    const cx = W / 2, cy = H / 2
+    const R = Math.min(W, H) * 0.34
+    const innerR = R * (p.diam / (p.diam + p.thick * 2.2))
     const SEG = 128
 
-    // Create ring geometry
-    const shape = new THREE.Shape()
-    const outerPoints: THREE.Vector2[] = []
-    const innerPoints: THREE.Vector2[] = []
+    ctx.clearRect(0, 0, W, H)
 
-    // Generate outer ring points
+    const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.5)
+    bg.addColorStop(0, '#080812')
+    bg.addColorStop(1, '#020205')
+    ctx.fillStyle = bg
+    ctx.fillRect(0, 0, W, H)
+
     const rand = mkRand(seed)
     const vpts: [number, number][] = []
     for (let i = 0; i < 16; i++) vpts.push([rand() * Math.PI * 2, (rand() - 0.5) * p.width])
@@ -89,89 +94,69 @@ function RingPreview3D({ seed, size = 160 }: { seed: number; size?: number }) {
     const cutsList: { a: number; aw: number }[] = []
     for (let k = 0; k < p.cn; k++) cutsList.push({ a: cr() * Math.PI * 2, aw: 0.1 + cr() * 0.2 })
 
+    const outer: [number, number][] = []
     for (let i = 0; i <= SEG; i++) {
       const angle = (i / SEG) * Math.PI * 2
-      let r = 1 // Normalized radius
-      if (p.spikes) { const sp = Math.max(0, Math.sin(angle * p.sc)); r += Math.pow(sp, 3) * p.sh * 0.15 }
-      if (p.waves) r += Math.sin(angle * p.wf) * p.wa * 0.08
+      let r = R
+      if (p.spikes) { const sp = Math.max(0, Math.sin(angle * p.sc)); r += Math.pow(sp, 3) * p.sh * (R / p.diam) * 5.5 }
+      if (p.waves) r += Math.sin(angle * p.wf) * p.wa * (R / p.diam) * 3.5
       if (p.voro) {
         let mn = 1e9
         for (const pt of vpts) { const da = angle - pt[0]; mn = Math.min(mn, Math.abs(da)) }
-        r += (0.5 - Math.min(mn / 1.5, 1)) * p.vi * 0.08
+        r += (0.5 - Math.min(mn / 1.5, 1)) * p.vi * (R / p.diam) * 3
       }
       if (p.cuts) {
         for (const c of cutsList) {
           const ad = Math.abs(((angle - c.a + Math.PI * 3) % (Math.PI * 2)) - Math.PI)
-          if (ad < c.aw) r += 0.04 * (1 - ad / c.aw) * 0.7
+          if (ad < c.aw) r += (R * 0.04) * (1 - ad / c.aw) * 0.7
         }
       }
-      outerPoints.push(new THREE.Vector2(Math.cos(angle) * r, Math.sin(angle) * r))
+      outer.push([cx + Math.cos(angle) * r, cy + Math.sin(angle) * r])
     }
 
-    // Generate inner ring points (hole)
-    const innerR = p.diam / (p.diam + p.thick * 2.2)
-    for (let i = 0; i <= SEG; i++) {
-      const angle = (i / SEG) * Math.PI * 2
-      innerPoints.push(new THREE.Vector2(Math.cos(angle) * innerR, Math.sin(angle) * innerR))
+    ctx.shadowBlur = 20
+    ctx.shadowColor = 'rgba(180,0,255,0.5)'
+    ctx.beginPath()
+    outer.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y))
+    ctx.closePath()
+    ctx.fillStyle = '#060610'
+    ctx.fill()
+
+    const grad = ctx.createLinearGradient(cx - R, cy - R, cx + R, cy + R)
+    grad.addColorStop(0, '#b400ff')
+    grad.addColorStop(0.5, '#6622aa')
+    grad.addColorStop(1, '#00ff9d')
+    ctx.strokeStyle = grad
+    ctx.lineWidth = 1.5
+    ctx.stroke()
+    ctx.shadowBlur = 0
+
+    ctx.beginPath()
+    ctx.arc(cx, cy, innerR, 0, Math.PI * 2)
+    ctx.fillStyle = '#020205'
+    ctx.fill()
+    ctx.strokeStyle = 'rgba(180,0,255,0.2)'
+    ctx.lineWidth = 0.5
+    ctx.stroke()
+
+    ctx.globalAlpha = 0.06
+    ctx.strokeStyle = '#b400ff'
+    ctx.lineWidth = 0.5
+    for (let n = 1; n <= 3; n++) {
+      ctx.beginPath()
+      ctx.arc(cx, cy, innerR + (R * 0.85 - innerR) * n / 4, 0, Math.PI * 2)
+      ctx.stroke()
     }
-
-    // Create ring shape
-    shape.moveTo(outerPoints[0].x, outerPoints[0].y)
-    for (let i = 1; i < outerPoints.length; i++) {
-      shape.lineTo(outerPoints[i].x, outerPoints[i].y)
-    }
-
-    // Create hole
-    const holePath = new THREE.Path()
-    holePath.moveTo(innerPoints[0].x, innerPoints[0].y)
-    for (let i = 1; i < innerPoints.length; i++) {
-      holePath.lineTo(innerPoints[i].x, innerPoints[i].y)
-    }
-    shape.holes.push(holePath)
-
-    // Extrude to create 3D geometry
-    const geometry = new THREE.ExtrudeGeometry(shape, {
-      depth: p.width * 0.1, // Extrusion depth
-      bevelEnabled: false,
-    })
-
-    mesh.geometry = geometry
+    ctx.globalAlpha = 1
   }, [seed])
 
   return (
-    <Canvas
-      camera={{ position: [0, 0, 3], fov: 50 }}
+    <canvas
+      ref={canvasRef}
+      width={size}
+      height={size}
       style={{ width: '100%', height: '100%', display: 'block' }}
-      gl={{ antialias: true, alpha: true }}
-    >
-      {/* Lighting */}
-      <ambientLight intensity={0.4} />
-      <pointLight position={[10, 10, 10]} intensity={0.8} color="#b400ff" />
-      <pointLight position={[-10, -10, -10]} intensity={0.4} color="#00ff9d" />
-      <directionalLight position={[0, 5, 5]} intensity={0.6} />
-
-      {/* Ring Mesh */}
-      <mesh ref={meshRef} rotation={[0.3, 0, 0]}>
-        <meshStandardMaterial
-          color="#060610"
-          metalness={0.8}
-          roughness={0.2}
-          emissive="#b400ff"
-          emissiveIntensity={0.1}
-        />
-      </mesh>
-
-      {/* Auto-rotation */}
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        enableRotate={true}
-        autoRotate={true}
-        autoRotateSpeed={1}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2}
-      />
-    </Canvas>
+    />
   )
 }
 
@@ -342,14 +327,12 @@ export default function Drop01Page() {
             >
               {/* Canvas preview */}
               <div style={{ height: 200, background: '#030308', position: 'relative' }}>
-                <RingPreview3D seed={item.seed} size={200} />
+                <RingPreview seed={item.seed} size={200} />
                 {/* Rank */}
                 <div style={{
                   position: 'absolute', top: 8, left: 10,
                   fontFamily: "'Bebas Neue', sans-serif",
                   fontSize: 18, color: 'rgba(180,0,255,0.15)',
-                  pointerEvents: 'none',
-                  zIndex: 10,
                 }}>
                   {String(idx + 1).padStart(2, '0')}
                 </div>
@@ -362,8 +345,6 @@ export default function Drop01Page() {
                     border: '1px solid rgba(0,255,157,0.3)',
                     color: 'rgba(0,255,157,0.7)',
                     background: 'rgba(0,0,0,0.6)',
-                    pointerEvents: 'none',
-                    zIndex: 10,
                   }}>
                     FÍSICO
                   </div>
@@ -406,7 +387,7 @@ export default function Drop01Page() {
                   </div>
                   <div style={{ display: 'flex', gap: 6 }}>
                     <a
-                      href={`/np-ring?seed=${item.seed}`}
+                      href={`/legacy/np-ring.html?seed=${item.seed}`}
                       onClick={e => e.stopPropagation()}
                       style={{
                         fontSize: 7, letterSpacing: '0.15em',
@@ -475,7 +456,7 @@ export default function Drop01Page() {
             <strong style={{ color: '#4a4a6a' }}>STL Digital</strong> — archivo listo para Chitubox / Lychee.<br />
             <strong style={{ color: '#4a4a6a' }}>Objeto Físico</strong> — impreso en resina ABS-Like, Photon Mono 2.<br />
             <strong style={{ color: '#4a4a6a' }}>Tarjeta de identidad</strong> — ID + QR → página del objeto.<br />
-            <strong style={{ color: '#4a4a6a' }}>URL permanente</strong> — neoproxy.art/np-ring?seed=XXXXX
+            <strong style={{ color: '#4a4a6a' }}>URL permanente</strong> — neoproxy.art/legacy/np-ring.html?seed=XXXXX
           </div>
         </div>
         <div>
@@ -520,7 +501,7 @@ function handleBuy(item: typeof DROP_01_SEEDS[0]) {
   // Por ahora: mailto con el ID del objeto
   const subject = encodeURIComponent(`Reserva DROP 01 — NP-${String(item.seed).padStart(5, '0')}`)
   const body = encodeURIComponent(
-    `Hola,\n\nQuiero reservar:\n\nID: NP-${String(item.seed).padStart(5, '0')}\nArquetipo: ${item.archetype}\nTipo: ${item.physical ? 'Objeto físico' : 'STL digital'}\nPrecio: $${item.price}\n\nSeed: ${item.seed}\nURL: neoproxy.art/np-ring?seed=${item.seed}`
+    `Hola,\n\nQuiero reservar:\n\nID: NP-${String(item.seed).padStart(5, '0')}\nArquetipo: ${item.archetype}\nTipo: ${item.physical ? 'Objeto físico' : 'STL digital'}\nPrecio: $${item.price}\n\nSeed: ${item.seed}\nURL: neoproxy.art/legacy/np-ring.html?seed=${item.seed}`
   )
   window.location.href = `mailto:darkproxy@neoproxy.art?subject=${subject}&body=${body}`
 }
